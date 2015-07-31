@@ -11,8 +11,9 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
   * Allows you to specify min amount of calls to interstitial before it actually gets displayed (to avoid annoying your users).
 
 ## How to Install
-Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png)<br />
-Go to : http://community.stencyl.com/index.php/topic,30432.0.html
+Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png) on this page https://github.com/byrobingames/heyzap<br />
+
+Install the zip file Go to : http://community.stencyl.com/index.php/topic,30432.0.html
 
 ## Documentation and Blocks Example
 [Heyzap WIKI](https://github.com/byrobingames/heyzap/wiki)
