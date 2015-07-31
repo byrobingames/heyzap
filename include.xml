@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension>
+	<section if="android">
+        <classpath name="src" />
+		
+		<dependency name="heyzap" path="dependencies/heyzap" if="android" />
+        
+        <android extension="com.byrobin.heyzap.HeyzapEx" />
+	</section>
+	<section if="ios">
+		<ndll name="heyzap" />
+        
+        
+		<dependency path="frameworks/HeyzapAds.framework"/>
+		<dependency name="AdSupport.framework" />
+		<dependency name="AudioToolbox.framework" />
+		<dependency name="AVFoundation.framework" />
+		<dependency name="CoreGraphics.framework" />
+		<dependency name="CoreMedia.framework" />
+		<dependency name="CoreTelephony.framework" />
+		<dependency name="EventKit.framework" />
+		<dependency name="EventKitUI.framework" />
+        <dependency name="iAd.framework" />
+		<dependency name="MessageUI.framework" />
+        <dependency name="MobileCoreServices.framework" />
+        <dependency name="QuartzCore.framework" />
+        <dependency name="Security.framework" />
+		<dependency name="StoreKit.framework" />
+		<dependency name="SystemConfiguration.framework" />
+        
+        <dependency name="xml2" />
+        <dependency name="sqlite3" />
+        <dependency name="z" />
+        
+        <ios linker-flags="-ObjC" />
+        
+        
+	</section>
+</extension>
