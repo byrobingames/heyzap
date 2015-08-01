@@ -12,10 +12,12 @@
         
         
 		<dependency path="frameworks/HeyzapAds.framework"/>
+        <dependency name="Accelerate.framework" />
 		<dependency name="AdSupport.framework" />
 		<dependency name="AudioToolbox.framework" />
 		<dependency name="AVFoundation.framework" />
 		<dependency name="CoreGraphics.framework" />
+        <dependency name="CoreLocation.framework" />
 		<dependency name="CoreMedia.framework" />
 		<dependency name="CoreTelephony.framework" />
 		<dependency name="EventKit.framework" />
@@ -25,8 +27,10 @@
         <dependency name="MobileCoreServices.framework" />
         <dependency name="QuartzCore.framework" />
         <dependency name="Security.framework" />
+        <dependency name="Social.framework" />
 		<dependency name="StoreKit.framework" />
 		<dependency name="SystemConfiguration.framework" />
+        <dependency name="Webkit.framework" />
         
         <dependency name="xml2" />
         <dependency name="sqlite3" />
