@@ -21,6 +21,7 @@ Install the zip file Go to : http://community.stencyl.com/index.php/topic,30432.
 ### Error on compiling
 
 If you get this error on compiling go to: https://github.com/byrobingames/heyzap/wiki/4.-Error-on-Compiling to resolve this<br/>
+
     [openfl] Undefined symbols for architecture arm64:
     [openfl]     _OBJC_CLASS_$_HZShowOptions", referenced from:
     [openfl]        objc-class-ref in libheyzap.a(054f34a9_HeyzapEx.o)
