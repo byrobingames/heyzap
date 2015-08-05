@@ -134,6 +134,5 @@ class Heyzap {
 		}
 
         return false;
-    }
-	
+    }	
 }
