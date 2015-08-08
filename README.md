@@ -10,6 +10,12 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
   * Allows you to specify min amount of time between interstitial displays (to avoid annoying your users).
   * Allows you to specify min amount of calls to interstitial before it actually gets displayed (to avoid annoying your users).
 
+**TODO**
+- Banner support (3rd-paty networks)
+- Videoads support
+- Videoaward support
+- 3rd-party networks (Admob,Apple iad, AppLovin,Chartboost, Facebook Audience Network, Opera (AdColony), Unityads, Vungle, MdotM)
+
 ## How to Install
 Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png) on this page https://github.com/byrobingames/heyzap<br />
 
