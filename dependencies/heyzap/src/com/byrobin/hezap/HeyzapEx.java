@@ -31,10 +31,12 @@ public class HeyzapEx extends Extension {
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////
     
-    private static boolean interstitialLoaded = false;
-    private static boolean interstitialFailedToLoad = false;
-    private static boolean interstitialClicked =false;
-    private static boolean interstitialClosed =false;
+    private static boolean adLoaded = false;
+    private static boolean adFailedToLoad = false;
+    private static boolean adClicked =false;
+    private static boolean adClosed =false;
+    private static boolean completeRewardedVideo =false;
+    private static boolean failToCompleteRewardedVideo =false;
 	private static String HeyzapId=null;
 
 
@@ -52,8 +54,7 @@ public class HeyzapEx extends Extension {
                 HeyzapAds.start(HeyzapId,Extension.mainActivity);
                 
                 //setCallbacks
-                setupCallbacks();
-                
+                setupCallbacks();   
                 
 			}
 		});	
@@ -75,47 +76,125 @@ public class HeyzapEx extends Extension {
 		});
 		Log.d("HeyzapEx","Show Interstitial End");
 	}
+    
+    static public void fetchVideo() {
+        Log.d("HeyzapEx","Fetch Video Begin");
+        if(HeyzapId=="") return;
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+                    VideoAd.fetch();
+            }
+        });
+        Log.d("HeyzapEx","Fetch Video End");
+    }
+    
+    static public void showVideo() {
+        Log.d("HeyzapEx","Show Video Begin");
+        if(HeyzapId=="") return;
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+                
+                if(VideoAd.isAvailable())
+                {
+                    VideoAd.display(Extension.mainActivity);
+                }
+                
+            }
+        });
+        Log.d("HeyzapEx","Show Video End");
+    }
 	
+    static public void fetchRewardedVideo() {
+        Log.d("HeyzapEx","Fetch Rewarded Video Begin");
+        if(HeyzapId=="") return;
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+                    IncentivizedAd.fetch();
+            }
+        });
+        Log.d("HeyzapEx","Fetch Rewarded Video End");
+    }
+    
+    static public void showRewardedVideo() {
+        Log.d("HeyzapEx","Show Video Begin");
+        if(HeyzapId=="") return;
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+                
+                if(IncentivizedAd.isAvailable())
+                {
+                    IncentivizedAd.display(Extension.mainActivity);
+                }
+                
+            }
+        });
+        Log.d("HeyzapEx","Show Video End");
+    }
+
     
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	
     static public boolean interstitialIsLoaded()
     {
-        if (interstitialLoaded)
+        if (adLoaded)
         {
-            interstitialLoaded = false;
+            adLoaded = false;
             return true;
         }
         return false;
     }
     
-    static public boolean interstitialFailedToLoad()
+    static public boolean adFailedToLoad()
     {
-        if (interstitialFailedToLoad)
+        if (adFailedToLoad)
         {
-            interstitialFailedToLoad = false;
+            adFailedToLoad = false;
             return true;
         }
         return false;
     }
     
-    static public boolean interstitialClosed()
+    static public boolean adClosed()
     {
-        if (interstitialClosed)
+        if (adClosed)
         {
-            interstitialClosed = false;
+            adClosed = false;
             return true;
         }
         return false;
     }
     
     
-    static public boolean interstitialClicked()
+    static public boolean adClicked()
     {
-        if (interstitialClicked)
+        if (adClicked)
         {
-            interstitialClicked = false;
+            adClicked = false;
+            return true;
+        }
+        return false;
+    }
+    
+    static public boolean rewardedVideoComplete()
+    {
+        if (completeRewardedVideo)
+        {
+            completeRewardedVideo = false;
+            return true;
+        }
+        return false;
+    }
+    
+    static public boolean rewardedVideoFailToComplete()
+    {
+        if (failToCompleteRewardedVideo)
+        {
+            failToCompleteRewardedVideo = false;
             return true;
         }
         return false;
@@ -136,7 +215,7 @@ public class HeyzapEx extends Extension {
             public void onAvailable(String tag) {
                 /* An ad you fetched is now available.
                  * */
-                interstitialLoaded = true;
+                adLoaded = true;
                 Log.d("HeyzapEx","Received Interstitial!");
                 
             }
@@ -154,7 +233,7 @@ public class HeyzapEx extends Extension {
                  * go to the play store.
                  * */
                 
-                interstitialClicked = true;
+                adClicked = true;
             }
             
             @Override
@@ -162,7 +241,7 @@ public class HeyzapEx extends Extension {
                 /* The user has hidden the ad and has been returned to your app.
                  * */
                 
-                interstitialClosed = true;
+                adClosed = true;
                 
                 Log.d("HeyzapEx","Dismiss Interstitial");
             }
@@ -175,7 +254,7 @@ public class HeyzapEx extends Extension {
                  * c) the ad server could not find a good enough ad
                  * */
                 
-                interstitialFailedToLoad = true;
+                adFailedToLoad = true;
                 Log.d("HeyzapEx","Fail to get Interstitial");
                 
             }
@@ -206,8 +285,32 @@ public class HeyzapEx extends Extension {
             
         };
         
+        IncentivizedAd.OnIncentiveResultListener incentiveListener = new IncentivizedAd.OnIncentiveResultListener() {
+            @Override
+            public void onComplete(String tag) {
+                // Give the player their reward
+                
+                completeRewardedVideo = true;
+            }
+            
+            @Override
+            public void onIncomplete(String tag) {
+                // Don't give the player their reward, and tell them why
+                
+                failToCompleteRewardedVideo = true;
+            }
+        };
+        
+        // Intertitial Ad listener
         InterstitialAd.setOnStatusListener(statusListener);
         
+        // Video Ad listener
+        VideoAd.setOnStatusListener(statusListener);
+        
+        // IncentivizedAd listener
+        IncentivizedAd.setOnStatusListener(statusListener);
+        IncentivizedAd.setOnIncentiveResultListener(incentiveListener);
+        
     }
-    
+
 }

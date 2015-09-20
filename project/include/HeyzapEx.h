@@ -7,10 +7,16 @@ namespace heyzap {
 	
 	void init(const char *HeyzapID);
 	void showInterstitial();
-    bool interstitialLoaded();
-    bool interstitialFailToLoad();
-    bool interstitialClosed();
-    bool interstitialIsClicked();
+    void fetchVideo();
+    void showVideo();
+    void fetchRewardedVideo();
+    void showRewardedVideo();
+    bool adLoaded();
+    bool adFailToLoad();
+    bool adClosed();
+    bool adIsClicked();
+    bool completeRewardedVideo();
+    bool failToCompleteRewardedVideo();
     
 }
 

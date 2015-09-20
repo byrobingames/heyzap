@@ -16,28 +16,34 @@ using namespace heyzap;
 
 extern "C" void nme_app_set_active(bool inActive);
 
-@interface HeyzapController : UIViewController <HZAdsDelegate>
+@interface HeyzapController : UIViewController <HZAdsDelegate, HZIncentivizedAdDelegate>
 {
     UIViewController *root;
     
-    BOOL interstitialLoaded;
-    BOOL interstitialFailToLoad;
-    BOOL interstitialClosed;
-    BOOL interstitialIsClicked;
+    BOOL adLoaded;
+    BOOL adFailToLoad;
+    BOOL adClosed;
+    BOOL adClicked;
+    BOOL completeRewardedVideo;
+    BOOL failToCompleteRewardedVideo;
 }
 
-@property (nonatomic, assign) BOOL interstitialLoaded;
-@property (nonatomic, assign) BOOL interstitialFailToLoad;
-@property (nonatomic, assign) BOOL interstitialClosed;
-@property (nonatomic, assign) BOOL interstitialIsClicked;
+@property (nonatomic, assign) BOOL adLoaded;
+@property (nonatomic, assign) BOOL adFailToLoad;
+@property (nonatomic, assign) BOOL adClosed;
+@property (nonatomic, assign) BOOL adIsClicked;
+@property (nonatomic, assign) BOOL completeRewardedVideo;
+@property (nonatomic, assign) BOOL failToCompleteRewardedVideo;
 @end
 
 @implementation HeyzapController
 
-@synthesize interstitialLoaded;
-@synthesize interstitialFailToLoad;
-@synthesize interstitialClosed;
-@synthesize interstitialIsClicked;
+@synthesize adLoaded;
+@synthesize adFailToLoad;
+@synthesize adClosed;
+@synthesize adIsClicked;
+@synthesize completeRewardedVideo;
+@synthesize failToCompleteRewardedVideo;
 
 - (id)initWithID:(NSString*)ID
 {
@@ -45,7 +51,15 @@ extern "C" void nme_app_set_active(bool inActive);
     if(!self) return nil;
     
     [HeyzapAds startWithPublisherID:ID];
+    
+    // Interstitial Ads Delegate
     [HZInterstitialAd setDelegate: self];
+    
+    // Video Ads Delegate
+    [HZVideoAd setDelegate:self];
+    
+    //Incentivized Ads Delegate
+    [HZIncentivizedAd setDelegate:self];
    
     
     return self;
@@ -63,29 +77,43 @@ extern "C" void nme_app_set_active(bool inActive);
     if ([HZInterstitialAd isAvailable])
     {
 
-       /* root = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-        
-        HZShowOptions *options = [[HZShowOptions alloc] init];
-        
-        options.viewController = root;
-        
-        [HZInterstitialAd showWithOptions:options];*/
         [HZInterstitialAd show];
     }
 }
 
+- (void)fetchVideoAd
+{
+    [HZVideoAd fetch];
+}
+
+- (void)showVideoAd
+{
+    [HZVideoAd show];
+}
+
+- (void)fetchRewardedVideoAd
+{
+    [HZIncentivizedAd fetch];
+}
+
+- (void)showRewardedVideoAd
+{
+    [HZIncentivizedAd show];
+}
+
+
 // Sent when an ad has been loaded and is ready to be displayed.
 - (void) didReceiveAdWithTag:(NSString *)tag
 {
-    interstitialLoaded = YES;
-    interstitialFailToLoad = NO;
+    adLoaded = YES;
+    adFailToLoad = NO;
 }
 
  // Sent when an ad has failed to load.
 - (void) didFailToReceiveAdWithTag: (NSString *)tag
 {
-    interstitialFailToLoad = YES;
-    interstitialLoaded = NO;
+    adFailToLoad = YES;
+    adLoaded = NO;
     
 }
 
@@ -93,7 +121,7 @@ extern "C" void nme_app_set_active(bool inActive);
 - (void) didHideAdWithTag:(NSString *)tag
 {
     
-    interstitialClosed = YES;
+    adClosed = YES;
 
 }
 
@@ -112,8 +140,24 @@ extern "C" void nme_app_set_active(bool inActive);
 // Sent when an ad has been clicked.
 - (void) didClickAdWithTag:(NSString *)tag
 {
-    interstitialIsClicked = YES;
+    adIsClicked = YES;
 }
+
+- (void) didCompleteAdWithTag: (NSString *)tag
+{
+    // When an incentivized video ad has been fully watched
+    
+    completeRewardedVideo = YES;
+}
+
+- (void) didFailToCompleteAdWithTag: (NSString *)tag
+{
+    // When user fails to watch the incentivized video all the way through
+    
+    failToCompleteRewardedVideo = YES;
+}
+
+
 
 @end
 
@@ -142,55 +186,112 @@ namespace heyzap {
         }
     }
     
+    void fetchVideo()
+    {
+        if(adController!=NULL)
+        {
+            [adController fetchVideoAd];
+        }
+    }
+    
+    void showVideo()
+    {
+        if(adController!=NULL)
+        {
+            [adController showVideoAd];
+        }
+    }
+    
+    void fetchRewardedVideo()
+    {
+        if(adController!=NULL)
+        {
+            [adController fetchRewardedVideoAd];
+        }
+    }
+    
+    void showRewardedVideo()
+    {
+        if(adController!=NULL)
+        {
+            [adController showRewardedVideoAd];
+        }
+    }
     
 //Callbacks
     
-    bool interstitialLoaded()
+    bool adLoaded()
     {
         if(adController != NULL)
         {
-            if (adController.interstitialLoaded)
+            if (adController.adLoaded)
             {
-                adController.interstitialLoaded = NO;
+                adController.adLoaded = NO;
                 return true;
             }
         }
         return false;
     }
     
-    bool interstitialFailToLoad()
+    bool adFailToLoad()
     {
         if(adController != NULL)
         {
-            if (adController.interstitialFailToLoad)
+            if (adController.adFailToLoad)
             {
-                adController.interstitialFailToLoad = NO;
+                adController.adFailToLoad = NO;
                 return true;
             }
         }
         return false;
     }
 
-    bool interstitialClosed()
+    bool adClosed()
     {
         if(adController != NULL)
         {
-            if (adController.interstitialClosed)
+            if (adController.adClosed)
             {
-                adController.interstitialClosed = NO;
+                adController.adClosed = NO;
                 return true;
             }
         }
         return false;
     }
     
-    bool interstitialIsClicked()
+    bool adIsClicked()
     {
         if(adController != NULL)
         {
-            if (adController.interstitialIsClicked)
+            if (adController.adIsClicked)
             {
-                adController.interstitialIsClicked = NO;
+                adController.adIsClicked = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool completeRewardedVideo()
+    {
+        if(adController != NULL)
+        {
+            if (adController.completeRewardedVideo)
+            {
+                adController.completeRewardedVideo = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool failToCompleteRewardedVideo()
+    {
+        if(adController != NULL)
+        {
+            if (adController.failToCompleteRewardedVideo)
+            {
+                adController.failToCompleteRewardedVideo = NO;
                 return true;
             }
         }

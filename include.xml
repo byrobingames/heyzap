@@ -12,6 +12,7 @@
         
         
 		<dependency path="frameworks/HeyzapAds.framework"/>
+        
         <dependency name="Accelerate.framework" />
 		<dependency name="AdSupport.framework" />
 		<dependency name="AudioToolbox.framework" />
@@ -35,6 +36,12 @@
         <dependency name="xml2" />
         <dependency name="sqlite3" />
         <dependency name="z" />
+        
+        <dependency name="frameworks/libAppTracker.a" />
+        <template path="frameworks/libAppTracker.a" rename="lib/arm64/libAppTracker.a" />
+        <template path="frameworks/libAppTracker.a" rename="lib/armv7/libAppTracker.a" />
+        <template path="frameworks/libAppTracker.a" rename="lib/i386/libAppTracker.a" />
+        <template path="frameworks/libAppTracker.a" rename="lib/x86_64/libAppTracker.a" />
         
         <ios linker-flags="-ObjC" />
         

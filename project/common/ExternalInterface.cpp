@@ -31,38 +31,78 @@ static value heyzap_interstitial_show(){
 }
 DEFINE_PRIM(heyzap_interstitial_show,0);
 
+static value heyzap_video_fetch(){
+    fetchVideo();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_video_fetch,0);
+
+static value heyzap_video_show(){
+    showVideo();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_video_show,0);
+
+static value heyzap_rewardedvideo_fetch(){
+    fetchRewardedVideo();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_rewardedvideo_fetch,0);
+
+static value heyzap_rewardedvideo_show(){
+    showRewardedVideo();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_rewardedvideo_show,0);
+
 //callbacks
-static value heyzap_interstitial_loaded()
+static value heyzap_ad_loaded()
 {
-    if (heyzap::interstitialLoaded())
+    if (heyzap::adLoaded())
         return val_true;
     return val_false;
 }
-DEFINE_PRIM(heyzap_interstitial_loaded, 0);
+DEFINE_PRIM(heyzap_ad_loaded, 0);
 
-static value heyzap_interstitial_failed()
+static value heyzap_ad_failed()
 {
-    if (heyzap::interstitialFailToLoad())
+    if (heyzap::adFailToLoad())
         return val_true;
     return val_false;
 }
-DEFINE_PRIM(heyzap_interstitial_failed, 0);
+DEFINE_PRIM(heyzap_ad_failed, 0);
 
-static value heyzap_interstitial_closed()
+static value heyzap_ad_closed()
 {
-    if (heyzap::interstitialClosed())
+    if (heyzap::adClosed())
         return val_true;
     return val_false;
 }
-DEFINE_PRIM(heyzap_interstitial_closed, 0);
+DEFINE_PRIM(heyzap_ad_closed, 0);
 
-static value heyzap_interstitial_clicked()
+static value heyzap_ad_clicked()
 {
-    if (heyzap::interstitialIsClicked())
+    if (heyzap::adIsClicked())
         return val_true;
     return val_false;
 }
-DEFINE_PRIM(heyzap_interstitial_clicked, 0);
+DEFINE_PRIM(heyzap_ad_clicked, 0);
+
+static value heyzap_rewardedvideo_complete()
+{
+    if (heyzap::completeRewardedVideo())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedvideo_complete, 0);
+
+static value heyzap_rewardedvideo_failtocomplete()
+{
+    if (heyzap::failToCompleteRewardedVideo())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedvideo_failtocomplete, 0);
 
 
 extern "C" void heyzap_main()

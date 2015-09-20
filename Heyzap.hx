@@ -11,11 +11,17 @@ class Heyzap {
 	
 	private static var __init:String->Void = function(heyzapId:String){};
 	private static var __showInterstitial:Void->Void = function(){};
+	private static var __fetchVideo:Void->Void = function(){};
+	private static var __showVideo:Void->Void = function(){};
+	private static var __fetchRewardedVideo:Void->Void = function(){};
+	private static var __showRewardedVideo:Void->Void = function(){};
 	
-	private static var __interstitialLoaded:Dynamic;
-	private static var __interstitialFailedToLoad:Dynamic;
-	private static var __interstitialClosed:Dynamic;
-	private static var __interstitialClicked:Dynamic;
+	private static var __adLoaded:Dynamic;
+	private static var __adFailedToLoad:Dynamic;
+	private static var __adClosed:Dynamic;
+	private static var __adClicked:Dynamic;
+	private static var __rewardedVideoComplete:Dynamic;
+	private static var __rewardedVideoFailToComplete:Dynamic;
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -39,6 +45,26 @@ class Heyzap {
 		}
 	}
 	
+	public static function fetchVideo() 
+	{	
+			__fetchVideo();
+	}
+	
+	public static function showVideo() 
+	{	
+			__showVideo();
+	}
+	
+	public static function fetchRewardedVideo() 
+	{	
+			__fetchRewardedVideo();
+	}
+	
+	public static function showRewardedVideo() 
+	{	
+			__showRewardedVideo();
+	}
+	
 	public static function init(heyzapId:String){
 	
 		#if ios
@@ -48,10 +74,16 @@ class Heyzap {
 			// CPP METHOD LINKING
 			__init = cpp.Lib.load("heyzap","heyzap_init",1);
 			__showInterstitial = cpp.Lib.load("heyzap","heyzap_interstitial_show",0);
-			__interstitialLoaded = cpp.Lib.load("heyzap","heyzap_interstitial_loaded",0);
-			__interstitialFailedToLoad = cpp.Lib.load("heyzap","heyzap_interstitial_failed",0);
-			__interstitialClosed = cpp.Lib.load("heyzap","heyzap_interstitial_closed",0);
-			__interstitialClicked = cpp.Lib.load("heyzap","heyzap_interstitial_clicked",0);
+			__fetchVideo = cpp.Lib.load("heyzap","heyzap_video_fetch",0);
+			__showVideo = cpp.Lib.load("heyzap","heyzap_video_show",0);
+			__fetchRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_fetch",0);
+			__showRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_show",0);
+			__adLoaded = cpp.Lib.load("heyzap","heyzap_ad_loaded",0);
+			__adFailedToLoad = cpp.Lib.load("heyzap","heyzap_ad_failed",0);
+			__adClosed = cpp.Lib.load("heyzap","heyzap_ad_closed",0);
+			__adClicked = cpp.Lib.load("heyzap","heyzap_ad_clicked",0);
+			__rewardedVideoComplete = cpp.Lib.load("heyzap","heyzap_rewardedvideo_complete",0);
+			__rewardedVideoFailToComplete = cpp.Lib.load("heyzap","heyzap_rewardedvideo_failtocomplete",0);
 
 			__init(heyzapId);
 		}catch(e:Dynamic){
@@ -66,6 +98,10 @@ class Heyzap {
 			// JNI METHOD LINKING
 			__init = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "init", "(Ljava/lang/String;)V");
 			__showInterstitial = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showInterstitial", "()V");
+			__fetchVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchVideo", "()V");
+			__showVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showVideo", "()V");
+			__fetchRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchRewardedVideo", "()V");
+			__showRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showRewardedVideo", "()V");
 
 			__init(heyzapId);
 		}catch(e:Dynamic){
@@ -74,65 +110,99 @@ class Heyzap {
 		#end
 	}
 	
-	public static function getInterstitialInfo(info:Int):Bool{
+	public static function getAdInfo(info:Int):Bool{
         if (info == 0)
         {
 			#if ios
-           	 return __interstitialLoaded();
+           	 return __adLoaded();
             #end
 			
 			#if android
-            	if (__interstitialLoaded == null)
+            	if (__adLoaded == null)
             	{
-                	__interstitialLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "interstitialIsLoaded", "()Z", true);
+                	__adLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adIsLoaded", "()Z", true);
             	}
-            	return __interstitialLoaded();
+            	return __adLoaded();
             #end			
 	
         }
         else if (info == 1)
         {
 			#if ios
-           		return __interstitialFailedToLoad();
+           		return __adFailedToLoad();
             #end
 			
 			#if android
-            	if (__interstitialFailedToLoad == null)
+            	if (__adFailedToLoad == null)
             	{
-                	__interstitialFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "interstitialFailedToLoad", "()Z", true);
+                	__adFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adFailedToLoad", "()Z", true);
             	}
-            	return __interstitialFailedToLoad();
+            	return __adFailedToLoad();
             #end
 				
         }else if (info == 2)
         {
 			#if ios
-           		return __interstitialClosed();
+           		return __adClosed();
             #end
 			
 			#if android
-            	if (__interstitialClosed == null)
+            	if (__adClosed == null)
             	{
-                	__interstitialClosed = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "interstitialClosed", "()Z", true);
+                	__adClosed = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adClosed", "()Z", true);
             	}
-            	return __interstitialClosed();
+            	return __adClosed();
             #end
 		}
         else
         {
 			#if ios
-           		return __interstitialClicked();
+           		return __adClicked();
             #end
 			
 			#if android
-            	if (__interstitialClicked == null)
+            	if (__adClicked == null)
             	{
-                	__interstitialClicked = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "interstitialClicked", "()Z", true);
+                	__adClicked = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adClicked", "()Z", true);
             	}
-            	return __interstitialClicked();
+            	return __adClicked();
             #end
 		}
 
         return false;
-    }	
+    }
+	
+	public static function getRewardedVideoInfo(info:Int):Bool{
+        if (info == 0)
+        {
+			#if ios
+           	 return __rewardedVideoComplete();
+            #end
+			
+			#if android
+            	if (__rewardedVideoComplete == null)
+            	{
+                	__rewardedVideoComplete = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedVideoComplete", "()Z", true);
+            	}
+            	return __rewardedVideoComplete();
+            #end			
+	
+        }
+        else if (info == 1)
+        {
+			#if ios
+           		return __rewardedVideoFailToComplete();
+            #end
+			
+			#if android
+            	if (__rewardedVideoFailToComplete == null)
+            	{
+                	__rewardedVideoFailToComplete = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedVideoFailToComplete", "()Z", true);
+            	}
+            	return __rewardedVideoFailToComplete();
+            #end
+				
+        }
+        return false;
+    }		
 }

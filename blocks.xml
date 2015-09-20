@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <palette>
     
-    <block tag="initHeyzap" spec="Initialize Heyzap ads with 'Publisher ID': %0 [c:heyzap]" code="Heyzap.init(~);" help="Inititalize Heyzap ads at the begin of your project!" type="action" color="charcoal" returns="void">
+    <block tag="initHeyzap" spec="Initialize Heyzap with 'Publisher ID': %0 [c:heyzap]" code="Heyzap.init(~);" help="Inititalize Heyzap ads at the begin of your project!" type="action" color="charcoal" returns="void">
         <fields>
             <text order="0"></text>
         </fields>
     </block>
     	
-	<block tag="showInterstitialHezap" spec="Show Heyzap Interstitial with minimal Interval time: %0 minimal time to Call Before Display: %1  [c:heyzap]" code="Heyzap.showInterstitial(~,~);" help="Minimal Interval time in seconds, 'Show Heyzap Interstitial' cannot been called in this time. - Minimal time in seconds before display Interstitial ad after 'Show Heyzap Interstitial' is called " type="action" color="charcoal" returns="void">
+	<block tag="showInterstitialHezap" spec="Heyzap: Show Interstitial Ad with minimal Interval time: %0 minimal time to Call Before Display: %1  [c:heyzap]" code="Heyzap.showInterstitial(~,~);" help="Minimal Interval time in seconds, 'Show Heyzap Interstitial' cannot been called in this time. - Minimal time in seconds before display Interstitial ad after 'Show Heyzap Interstitial' is called " type="action" color="charcoal" returns="void">
         <fields>
 		<number order="0"></number>
 		<number order="1"></number>
         </fields>
     </block>
+    
+    <block tag="fetchVideoHezap" spec="Heyzap: Fetch Video Ad [c:heyzap]" code="Heyzap.fetchVideo();" type="action" color="charcoal" returns="void">
+        <fields>
+        </fields>
+    </block>
+    
+    <block tag="showVideoHezap" spec="Heyzap: Show Video Ad [c:heyzap]" code="Heyzap.showVideo();" type="action" color="charcoal" returns="void">
+        <fields>
+        </fields>
+    </block>
+    
+    <block tag="fetchRewardedVideoHezap" spec="Heyzap: Fetch Rewarded Video Ad [c:heyzap]" code="Heyzap.fetchRewardedVideo();" type="action" color="charcoal" returns="void">
+        <fields>
+        </fields>
+    </block>
+    
+    <block tag="showRewardedVideoHezap" spec="Heyzap: Show Rewarded Video Ad [c:heyzap]" code="Heyzap.showRewardedVideo();" type="action" color="charcoal" returns="void">
+        <fields>
+        </fields>
+    </block>
        
-    <block tag="getInterstitialInfoHeyzap" spec="Heyzap Interstitial ad %0 [c:heyzap]" code="Heyzap.getInterstitialInfo(~)" type="normal" color="charcoal" returns="boolean">
+    <block tag="getAdInfoHeyzap" spec="Heyzap: Ad %0 [c:heyzap]" code="Heyzap.getAdInfo(~)" type="normal" color="charcoal" returns="boolean">
         <fields>
             <dropdown order="0">
 				<choices>
@@ -24,6 +44,17 @@
 					<c text="is clicked" code="3"></c>
 				</choices>
 			</dropdown>
+        </fields>
+    </block>
+    
+    <block tag="getRewardedInfoHeyzap" spec="Heyzap: Rewarded Video %0 [c:heyzap]" code="Heyzap.getRewardedVideoInfo(~)" type="normal" color="charcoal" returns="boolean">
+        <fields>
+            <dropdown order="0">
+                <choices>
+                    <c text="has been fully watched" code="0"></c>
+                    <c text="has not been fully watched" code="1"></c>
+                </choices>
+            </dropdown>
         </fields>
     </block>
 
