@@ -7,13 +7,14 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 ## Main Features
 
   * Interstitial Support.
+  * Video Support
+  * Rewarded Video Support.
   * Allows you to specify min amount of time between interstitial displays (to avoid annoying your users).
   * Allows you to specify min amount of calls to interstitial before it actually gets displayed (to avoid annoying your users).
+  * Included SDK's: Heyzap SDK, Leadbolt SDK,
 
 **TODO**
-- Banner support (3rd-paty networks)
-- Videoads support
-- Videoaward support
+- Banner support (Admob, iAd, Facebook Audience Network)
 - 3rd-party networks (Admob,Apple iad, AppLovin,Chartboost, Facebook Audience Network, Opera (AdColony), Unityads, Vungle, MdotM)
 
 ## How to Install
