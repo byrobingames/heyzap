@@ -6,10 +6,10 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 ### Important!!
 
-This extension is using a custum "PROJ.xcodeproj" file, to load the .bundle file, that Tapdaq used, automatically in your IOS game. It wil no harm for your game.
+This extension is using a custum "PROJ.xcodeproj" file to load some bundle files automatically in your IOS game. It wil no harm for your game.
 
 Does not work with the following extensions:
-- Heyzap Extension
+- Tapdaq Extension
 
 ## Main Features
 
