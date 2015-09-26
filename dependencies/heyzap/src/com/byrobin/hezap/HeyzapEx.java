@@ -301,7 +301,8 @@ public class HeyzapEx extends Extension {
             
         };
         
-        IncentivizedAd.OnIncentiveResultListener incentiveListener = new IncentivizedAd.OnIncentiveResultListener() {
+        
+        HeyzapAds.OnIncentiveResultListener incentiveListener = new HeyzapAds.OnIncentiveResultListener() {
             @Override
             public void onComplete(String tag) {
                 // Give the player their reward
