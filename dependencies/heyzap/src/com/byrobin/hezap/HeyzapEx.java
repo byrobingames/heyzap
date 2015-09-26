@@ -119,7 +119,7 @@ public class HeyzapEx extends Extension {
     }
     
     static public void showRewardedVideo() {
-        Log.d("HeyzapEx","Show Video Begin");
+        Log.d("HeyzapEx","Show Rewarded Video Begin");
         if(HeyzapId=="") return;
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
@@ -132,7 +132,23 @@ public class HeyzapEx extends Extension {
                 
             }
         });
-        Log.d("HeyzapEx","Show Video End");
+        Log.d("HeyzapEx","Show Rewarded Video End");
+    }
+    
+    static public void presentMediationDebug(){
+        
+        Log.d("HeyzapEx","Show presentMediationDebug Begin");
+
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+
+                    HeyzapAds.startTestActivity(Extension.mainActivity);
+                
+            }
+        });
+        Log.d("HeyzapEx","Show presentMediationDebug End");
+        
     }
 
     

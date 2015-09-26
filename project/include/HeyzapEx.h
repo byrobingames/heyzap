@@ -11,6 +11,7 @@ namespace heyzap {
     void showVideo();
     void fetchRewardedVideo();
     void showRewardedVideo();
+    void presentMediationDebug();
     bool adLoaded();
     bool adFailToLoad();
     bool adClosed();

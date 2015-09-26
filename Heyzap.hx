@@ -15,6 +15,7 @@ class Heyzap {
 	private static var __showVideo:Void->Void = function(){};
 	private static var __fetchRewardedVideo:Void->Void = function(){};
 	private static var __showRewardedVideo:Void->Void = function(){};
+	private static var __presentMediationDebug:Void->Void = function(){};
 	
 	private static var __adLoaded:Dynamic;
 	private static var __adFailedToLoad:Dynamic;
@@ -65,6 +66,12 @@ class Heyzap {
 			__showRewardedVideo();
 	}
 	
+	public static function presentMediationDebug() 
+	{	
+			__presentMediationDebug();
+	}
+	
+	
 	public static function init(heyzapId:String){
 	
 		#if ios
@@ -78,6 +85,7 @@ class Heyzap {
 			__showVideo = cpp.Lib.load("heyzap","heyzap_video_show",0);
 			__fetchRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_fetch",0);
 			__showRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_show",0);
+			__presentMediationDebug = cpp.Lib.load("heyzap","heyzap_presentmediation_debug",0);
 			__adLoaded = cpp.Lib.load("heyzap","heyzap_ad_loaded",0);
 			__adFailedToLoad = cpp.Lib.load("heyzap","heyzap_ad_failed",0);
 			__adClosed = cpp.Lib.load("heyzap","heyzap_ad_closed",0);
@@ -102,6 +110,7 @@ class Heyzap {
 			__showVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showVideo", "()V");
 			__fetchRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchRewardedVideo", "()V");
 			__showRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showRewardedVideo", "()V");
+			__presentMediationDebug = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "presentMediationDebug", "()V");
 
 			__init(heyzapId);
 		}catch(e:Dynamic){

@@ -55,6 +55,12 @@ static value heyzap_rewardedvideo_show(){
 }
 DEFINE_PRIM(heyzap_rewardedvideo_show,0);
 
+static value heyzap_presentmediation_debug(){
+    presentMediationDebug();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_presentmediation_debug,0);
+
 //callbacks
 static value heyzap_ad_loaded()
 {

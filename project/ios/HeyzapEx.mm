@@ -14,8 +14,6 @@
 
 using namespace heyzap;
 
-extern "C" void nme_app_set_active(bool inActive);
-
 @interface HeyzapController : UIViewController <HZAdsDelegate, HZIncentivizedAdDelegate>
 {
     UIViewController *root;
@@ -99,6 +97,11 @@ extern "C" void nme_app_set_active(bool inActive);
 - (void)showRewardedVideoAd
 {
     [HZIncentivizedAd show];
+}
+
+- (void)showMediationDebugController
+{
+    [HeyzapAds presentMediationDebugViewController];
 }
 
 
@@ -215,6 +218,14 @@ namespace heyzap {
         if(adController!=NULL)
         {
             [adController showRewardedVideoAd];
+        }
+    }
+    
+    void presentMediationDebug()
+    {
+        if(adController!=NULL)
+        {
+            [adController showMediationDebugController];
         }
     }
     
