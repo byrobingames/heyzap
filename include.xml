@@ -39,14 +39,5 @@
         
         <ios linker-flags="-ObjC" />
         
-        <dependency name="frameworks/libAppTracker.a" />
-        <template path="frameworks/libAppTracker.a" rename="lib/arm64/libAppTracker.a" />
-        <template path="frameworks/libAppTracker.a" rename="lib/armv7/libAppTracker.a" />
-        <template path="frameworks/libAppTracker.a" rename="lib/i386/libAppTracker.a" />
-        <template path="frameworks/libAppTracker.a" rename="lib/x86_64/libAppTracker.a" />
-        
-        <template path="templates" />
-        
-        
 	</section>
 </extension>
