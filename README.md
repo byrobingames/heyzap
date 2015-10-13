@@ -8,9 +8,6 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 This extension is using a custum "PROJ.xcodeproj" file to load some bundle files automatically in your IOS game. It wil no harm for your game.
 
-Does not work with the following extensions:
-- Tapdaq Extension
-
 ## Main Features
 
   * Interstitial Support.
@@ -18,11 +15,11 @@ Does not work with the following extensions:
   * Rewarded Video Support.
   * Allows you to specify min amount of time between interstitial displays (to avoid annoying your users).
   * Allows you to specify min amount of calls to interstitial before it actually gets displayed (to avoid annoying your users).
-  * Included SDK's: Heyzap SDK, Leadbolt SDK,
+  * Included SDK's: Heyzap SDK
 
 **TODO**
 - Banner support (Admob, iAd, Facebook Audience Network)
-- 3rd-party networks (Admob,Apple iad, AppLovin,Chartboost, Facebook Audience Network, Opera (AdColony), Unityads, Vungle, MdotM)
+- 3rd-party networks (Admob,Apple iad, AppLovin,Chartboost, Facebook Audience Network, Opera (AdColony), Unityads, Vungle, MdotM,Leadbolt SDK)
 
 ## How to Install
 Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png) on this page https://github.com/byrobingames/heyzap<br />
