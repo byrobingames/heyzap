@@ -1,24 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="::APP_PACKAGE::" android:versionCode="::APP_BUILD_NUMBER::" android:versionName="::APP_VERSION::" android:installLocation="::ANDROID_INSTALL_LOCATION::">
     
+    <!-- Required by AppLovin, Heyzap Ad Network, HyprMX, InMobi, UnityAds, and Vungle -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- Required by Vungle -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    <!-- Required by AppLovin, Heyzap Ad Network, HyprMX, InMobi, UnityAds, and Vungle -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
+    <!-- Required by AppLovin -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    
+    <!-- Required by AppLovin -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
+    <!-- Required by AppLovin, HyprMX, UnityAds, and Vungle -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
     <application>
         
-        <!-- Leadbolt -->
-        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:name="com.apptracker.android.module.AppModuleActivity" android:hardwareAccelerated="false"/>
-
-        <!-- HEYZAP START -->
-        <!-- You need these lines in your Android Manifest. Otherwise, your app will crash. -->
+        <!-- AppLovin -->
+        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+        
+        <!-- HyprMX -->
+        <!-- Note: It may not be necessary to add the HyprMX manifest entries if the HyprMX SDK Android project has been attached to your project as a library -->
+        <activity android:name="com.hyprmx.android.sdk.activity.HyprMXOfferViewerActivity" android:configChanges="orientation|screenSize|keyboardHidden|keyboard|smallestScreenSize|uiMode|fontScale|screenLayout|locale" android:label="HyprMX SDK" android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name="com.hyprmx.android.sdk.activity.HyprMXRequiredInformationActivity" android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name="com.hyprmx.android.sdk.activity.HyprMXSplashActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="com.hyprmx.android.sdk.activity.HyprMXOfferListActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="com.hyprmx.android.sdk.activity.HyprMXNoOffersActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="com.hyprmx.android.sdk.activity.HyprMXWebTrafficActivity" android:configChanges="orientation|screenSize|keyboardHidden|keyboard|smallestScreenSize|uiMode|fontScale|screenLayout|locale" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <service android:name="com.hyprmx.android.sdk.service.ApplicationInstallService" android:enabled="true" android:exported="false" android:stopWithTask="false" ></service>
+        
+        <!-- InMobi -->
+        <activity android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
+        <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true" >
+            <intent-filter>
+                <action android:name="com.inmobi.share.id" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- UnityAds -->
+        <activity android:name="com.unity3d.ads.android.view.UnityAdsFullscreenActivity"  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:hardwareAccelerated="true" />
+        
+        <!-- Vungle -->
+        <activity android:name="com.vungle.publisher.FullScreenAdActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <service android:name="com.vungle.publisher.VungleService"/>
+        
+        <!-- Heyzap Ad Network -->
         <activity android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
         <activity android:name="com.heyzap.sdk.ads.HeyzapVideoActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
-        <activity android:name="com.heyzap.sdk.ads.MediationTestActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
+        <activity android:name="com.heyzap.sdk.ads.HeyzapProxyActivity" />
+        <activity android:name="com.heyzap.sdk.ads.VASTActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
+        <activity android:name="com.heyzap.sdk.ads.MediationTestActivity" />
         <receiver android:name="com.heyzap.sdk.ads.PackageAddedReceiver">
             <intent-filter>
                 <data android:scheme="package"/>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
             </intent-filter>
         </receiver>
-        <!-- HEYZAP END -->
-
+        
     </application>
  
 </manifest>
