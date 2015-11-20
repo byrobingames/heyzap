@@ -4,6 +4,10 @@ For Stencyl 3.3 and above
 
 Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This extension allows you to easily integrate Heyzap on your Stencyl game / application. (http://www.stencyl.com)
 
+**TODO**
+- Banner support (Admob, iAd, Facebook Audience Network)
+
+
 ## Main Features
 
   * Interstitial Support.
@@ -14,8 +18,20 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
   * Included SDK's: Heyzap SDK,AppLovin, HyprMX, Unityads, Vungle,
   * Enable the extension to support the SDK's for that Network: AdColony, AdMob, Chartboost, Facebook ads, Leadbolt,   
 
-**TODO**
-- Banner support (Admob, iAd, Facebook Audience Network)
+Supported Networks | IOS SDK version | Android SDK version | Notes
+--- | --- | --- | ---
+[**AdMob**](http://community.stencyl.com/index.php/topic,41376.0.html) | - | - | Enable Admob extension in Stencyl
+[**AdColony**](http://community.stencyl.com/index.php/topic,40370.0.html) | - | - |  Enable AdColony extension in Stencyl
+**AppLovin** | - | - | Included in Heyzap extension
+[**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | - | - | Enable Chartboost extension in Stencyl
+[**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | - | - | Enable Facebook Ads extension in Stencyl
+[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | - | - | Enable Heyzap extension in Stencyl
+**HyprMX** | - | - | Included in Heyzap extension 
+**iAds (IOS only)** | - | - | Included in Stencyl
+[**Leadbolt**](http://community.stencyl.com/index.php/topic,45093.0.html) | - | - |  Enable Leadbolt extension in Stencyl
+**MdotM** | - | - | Non SDK needed
+**UnityAds** | - | - | Included in Heyzap extension
+**Vungle** | - | - | Included in Heyzap extension
 
 ## How to Install
 Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png) on this page https://github.com/byrobingames/heyzap<br />
