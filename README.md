@@ -20,15 +20,15 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 Supported Networks | IOS SDK version | Android SDK version | Notes
 --- | --- | --- | ---
-[**AdMob**](http://community.stencyl.com/index.php/topic,41376.0.html) | See post | See post | Enable Admob extension in Stencyl
-[**AdColony**](http://community.stencyl.com/index.php/topic,40370.0.html) | See post | See post |  Enable AdColony extension in Stencyl
+[**AdMob**](http://community.stencyl.com/index.php/topic,41376.0.html) | See extension | See extension | Enable Admob extension in Stencyl
+[**AdColony**](http://community.stencyl.com/index.php/topic,40370.0.html) | See extension | See extension |  Enable AdColony extension in Stencyl
 **AppLovin** | v3.1.5  | v6.1.4 | Included in Heyzap extension
-[**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | See post | See post | Enable Chartboost extension in Stencyl
-[**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See post | See post | Enable Facebook Ads extension in Stencyl
+[**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | See extension | See extension | Enable Chartboost extension in Stencyl
+[**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See extension | See extension | Enable Facebook Ads extension in Stencyl
 [**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | v9.2.7  | v9.2.7  | Enable Heyzap extension in Stencyl
 **HyprMX** | v68 | v17 | Included in Heyzap extension 
 **iAds (IOS only)** | - | - | Included in Stencyl
-[**Leadbolt**](http://community.stencyl.com/index.php/topic,45093.0.html) | - | - |  Enable Leadbolt extension in Stencyl
+[**Leadbolt**](http://community.stencyl.com/index.php/topic,45093.0.html) | See extension | See extension |  Enable Leadbolt extension in Stencyl
 **MdotM** | - | - | Non SDK needed
 **UnityAds** | v1.5.2 | v1.4.7 | Included in Heyzap extension
 **Vungle** | v3.2.0 | v3.3.2 | Included in Heyzap extension
