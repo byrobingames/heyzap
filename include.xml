@@ -10,9 +10,6 @@
 	<section if="ios">
 		<ndll name="heyzap" />
         
-        
-		<dependency path="frameworks/HeyzapAds.framework"/>
-        
         <dependency name="Accelerate.framework" />
 		<dependency name="AdSupport.framework" />
 		<dependency name="AudioToolbox.framework" />
@@ -33,11 +30,22 @@
 		<dependency name="SystemConfiguration.framework" />
         <dependency name="Webkit.framework" />
         
+        <dependency path="frameworks/HeyzapAds.framework"/>
+        <dependency path="frameworks/UnityAds.framework"/>
+        <dependency path="frameworks/HyprMX.framework" />
+        <dependency name="frameworks/libAppLovinSdk.a" />
+        <template path="frameworks/libAppLovinSdk.a" rename="lib/arm64/libAppLovinSdk.a" />
+        <template path="frameworks/libAppLovinSdk.a" rename="lib/armv7/libAppLovinSdk.a" />
+        <template path="frameworks/libAppLovinSdk.a" rename="lib/i386/libAppLovinSdk.a" />
+        <template path="frameworks/libAppLovinSdk.a" rename="lib/x86_64/libAppLovinSdk.a" />
+        
         <dependency name="xml2" />
         <dependency name="sqlite3" />
         <dependency name="z" />
         
         <ios linker-flags="-ObjC" />
+        
+        <template path="templates" />
         
 	</section>
 </extension>
