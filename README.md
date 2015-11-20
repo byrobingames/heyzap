@@ -20,18 +20,18 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 Supported Networks | IOS SDK version | Android SDK version | Notes
 --- | --- | --- | ---
-[**AdMob**](http://community.stencyl.com/index.php/topic,41376.0.html) | - | - | Enable Admob extension in Stencyl
-[**AdColony**](http://community.stencyl.com/index.php/topic,40370.0.html) | - | - |  Enable AdColony extension in Stencyl
-**AppLovin** | - | - | Included in Heyzap extension
-[**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | - | - | Enable Chartboost extension in Stencyl
-[**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | - | - | Enable Facebook Ads extension in Stencyl
-[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | - | - | Enable Heyzap extension in Stencyl
-**HyprMX** | - | - | Included in Heyzap extension 
+[**AdMob**](http://community.stencyl.com/index.php/topic,41376.0.html) | See post | See post | Enable Admob extension in Stencyl
+[**AdColony**](http://community.stencyl.com/index.php/topic,40370.0.html) | See post | See post |  Enable AdColony extension in Stencyl
+**AppLovin** | v3.1.5  | v6.1.4 | Included in Heyzap extension
+[**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | See post | See post | Enable Chartboost extension in Stencyl
+[**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See post | See post | Enable Facebook Ads extension in Stencyl
+[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | v9.2.7  | v9.2.7  | Enable Heyzap extension in Stencyl
+**HyprMX** | v68 | v17 | Included in Heyzap extension 
 **iAds (IOS only)** | - | - | Included in Stencyl
 [**Leadbolt**](http://community.stencyl.com/index.php/topic,45093.0.html) | - | - |  Enable Leadbolt extension in Stencyl
 **MdotM** | - | - | Non SDK needed
-**UnityAds** | - | - | Included in Heyzap extension
-**Vungle** | - | - | Included in Heyzap extension
+**UnityAds** | v1.5.2 | v1.4.7 | Included in Heyzap extension
+**Vungle** | v3.2.0 | v3.3.2 | Included in Heyzap extension
 
 ## How to Install
 Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png) on this page https://github.com/byrobingames/heyzap<br />
