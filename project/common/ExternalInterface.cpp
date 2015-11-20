@@ -19,11 +19,11 @@ static value heyzap_init(value heyzap_id){
 }
 DEFINE_PRIM(heyzap_init,1);
 
-//extern "C" void heyzap_main () {
-//	val_int(0); // Fix Neko init
-	
-//}
-//DEFINE_ENTRY_POINT (heyzap_main);
+static value heyzap_interstitial_fetch(){
+    fetchInterstitial();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_interstitial_fetch,0);
 
 static value heyzap_interstitial_show(){
 	showInterstitial();
@@ -61,7 +61,7 @@ static value heyzap_presentmediation_debug(){
 }
 DEFINE_PRIM(heyzap_presentmediation_debug,0);
 
-//callbacks
+//callbacks interstitial
 static value heyzap_ad_loaded()
 {
     if (heyzap::adLoaded())
@@ -94,6 +94,96 @@ static value heyzap_ad_clicked()
 }
 DEFINE_PRIM(heyzap_ad_clicked, 0);
 
+static value heyzap_ad_shows()
+{
+    if (heyzap::adShows())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_ad_shows, 0);
+
+//Callbacks video
+static value heyzap_videoad_loaded()
+{
+    if (heyzap::videoadLoaded())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_videoad_loaded, 0);
+
+static value heyzap_videoad_failed()
+{
+    if (heyzap::videoadFailToLoad())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_videoad_failed, 0);
+
+static value heyzap_videoad_closed()
+{
+    if (heyzap::videoadClosed())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_videoad_closed, 0);
+
+static value heyzap_videoad_clicked()
+{
+    if (heyzap::videoadIsClicked())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_videoad_clicked, 0);
+
+static value heyzap_videoad_shows()
+{
+    if (heyzap::videoadShows())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_videoad_shows, 0);
+
+//Callbacks rewarded video
+static value heyzap_rewardedad_loaded()
+{
+    if (heyzap::rewardedadLoaded())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedad_loaded, 0);
+
+static value heyzap_rewardedad_failed()
+{
+    if (heyzap::rewardedadFailToLoad())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedad_failed, 0);
+
+static value heyzap_rewardedad_closed()
+{
+    if (heyzap::rewardedadClosed())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedad_closed, 0);
+
+static value heyzap_rewardedad_clicked()
+{
+    if (heyzap::rewardedadIsClicked())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedad_clicked, 0);
+
+static value heyzap_rewardedad_shows()
+{
+    if (heyzap::rewardedadShows())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_rewardedad_shows, 0);
+
 static value heyzap_rewardedvideo_complete()
 {
     if (heyzap::completeRewardedVideo())
@@ -111,6 +201,9 @@ static value heyzap_rewardedvideo_failtocomplete()
 DEFINE_PRIM(heyzap_rewardedvideo_failtocomplete, 0);
 
 
+//end callbacks
+
+
 extern "C" void heyzap_main()
 {
 }
@@ -121,5 +214,3 @@ extern "C" int heyzap_register_prims()
     return 0;
 }
 
-
-//extern "C" int heyzapex_register_prims () { return 0; }

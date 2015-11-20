@@ -22,6 +22,17 @@ using namespace heyzap;
     BOOL adFailToLoad;
     BOOL adClosed;
     BOOL adClicked;
+    BOOL adShows;
+    BOOL videoadLoaded;
+    BOOL videoadFailToLoad;
+    BOOL videoadClosed;
+    BOOL videoadClicked;
+    BOOL videoadShows;
+    BOOL rewardedadLoaded;
+    BOOL rewardedadFailToLoad;
+    BOOL rewardedadClosed;
+    BOOL rewardedadClicked;
+    BOOL rewardedadShows;
     BOOL completeRewardedVideo;
     BOOL failToCompleteRewardedVideo;
 }
@@ -30,6 +41,17 @@ using namespace heyzap;
 @property (nonatomic, assign) BOOL adFailToLoad;
 @property (nonatomic, assign) BOOL adClosed;
 @property (nonatomic, assign) BOOL adIsClicked;
+@property (nonatomic, assign) BOOL adShows;
+@property (nonatomic, assign) BOOL videoadLoaded;
+@property (nonatomic, assign) BOOL videoadFailToLoad;
+@property (nonatomic, assign) BOOL videoadClosed;
+@property (nonatomic, assign) BOOL videoadIsClicked;
+@property (nonatomic, assign) BOOL videoadShows;
+@property (nonatomic, assign) BOOL rewardedadLoaded;
+@property (nonatomic, assign) BOOL rewardedadFailToLoad;
+@property (nonatomic, assign) BOOL rewardedadClosed;
+@property (nonatomic, assign) BOOL rewardedadIsClicked;
+@property (nonatomic, assign) BOOL rewardedadShows;
 @property (nonatomic, assign) BOOL completeRewardedVideo;
 @property (nonatomic, assign) BOOL failToCompleteRewardedVideo;
 @end
@@ -40,6 +62,17 @@ using namespace heyzap;
 @synthesize adFailToLoad;
 @synthesize adClosed;
 @synthesize adIsClicked;
+@synthesize adShows;
+@synthesize videoadLoaded;
+@synthesize videoadFailToLoad;
+@synthesize videoadClosed;
+@synthesize videoadIsClicked;
+@synthesize videoadShows;
+@synthesize rewardedadLoaded;
+@synthesize rewardedadFailToLoad;
+@synthesize rewardedadClosed;
+@synthesize rewardedadIsClicked;
+@synthesize rewardedadShows;
 @synthesize completeRewardedVideo;
 @synthesize failToCompleteRewardedVideo;
 
@@ -48,7 +81,7 @@ using namespace heyzap;
     self = [super init];
     if(!self) return nil;
     
-    [HeyzapAds startWithPublisherID:ID];
+    [HeyzapAds startWithPublisherID:ID andOptions: HZAdOptionsDisableAutoPrefetching];
     
     // Interstitial Ads Delegate
     [HZInterstitialAd setDelegate: self];
@@ -63,40 +96,40 @@ using namespace heyzap;
     return self;
 }
 
-- (void)dealloc
+- (void)fetchInterstitialAd
 {
-    [super dealloc];
+    
+    [HZInterstitialAd fetchForTag:@"interstitial"];
 }
-
 
 - (void)showInterstitialAd
 {
     
-    if ([HZInterstitialAd isAvailable])
+    if ([HZInterstitialAd isAvailableForTag:@"interstitial"])
     {
 
-        [HZInterstitialAd show];
+        [HZInterstitialAd showForTag:@"interstitial"];
     }
 }
 
 - (void)fetchVideoAd
 {
-    [HZVideoAd fetch];
+    [HZVideoAd fetchForTag:@"video"];
 }
 
 - (void)showVideoAd
 {
-    [HZVideoAd show];
+    [HZVideoAd showForTag:@"video"];
 }
 
 - (void)fetchRewardedVideoAd
 {
-    [HZIncentivizedAd fetch];
+    [HZIncentivizedAd fetchForTag:@"rewarded"];
 }
 
 - (void)showRewardedVideoAd
 {
-    [HZIncentivizedAd show];
+    [HZIncentivizedAd showForTag:@"rewarded"];
 }
 
 - (void)showMediationDebugController
@@ -108,31 +141,80 @@ using namespace heyzap;
 // Sent when an ad has been loaded and is ready to be displayed.
 - (void) didReceiveAdWithTag:(NSString *)tag
 {
-    adLoaded = YES;
-    adFailToLoad = NO;
+    if ([tag isEqualToString:@"interstitial"])
+    {
+        adLoaded = YES;
+        adFailToLoad = NO;
+    }
+    if ([tag isEqualToString:@"video"])
+    {
+        videoadLoaded = YES;
+        videoadFailToLoad = NO;
+    }
+    if ([tag isEqualToString:@"rewarded"])
+    {
+        rewardedadLoaded = YES;
+        rewardedadFailToLoad = NO;
+    }
 }
 
  // Sent when an ad has failed to load.
 - (void) didFailToReceiveAdWithTag: (NSString *)tag
 {
-    adFailToLoad = YES;
-    adLoaded = NO;
+    
+    if ([tag isEqualToString:@"interstitial"])
+    {
+        adFailToLoad = YES;
+        adLoaded = NO;
+    }
+    if ([tag isEqualToString:@"video"])
+    {
+        videoadFailToLoad = YES;
+        videoadLoaded = NO;
+    }
+    if ([tag isEqualToString:@"rewarded"])
+    {
+        rewardedadFailToLoad = YES;
+        rewardedadLoaded = NO;
+    }
     
 }
 
 // Sent when an ad has been removed from view.
 - (void) didHideAdWithTag:(NSString *)tag
 {
-    
-    adClosed = YES;
+    if ([tag isEqualToString:@"interstitial"])
+    {
+        adClosed = YES;
+    }
+    if ([tag isEqualToString:@"video"])
+    {
+        videoadClosed = YES;
+    }
+    if ([tag isEqualToString:@"rewarded"])
+    {
+        rewardedadClosed = YES;
+    }
 
 }
 
 
 - (void) didShowAdWithTag:(NSString *)tag {
         // Sent when an ad has been displayed.
+    if ([tag isEqualToString:@"interstitial"])
+    {
+        adShows = YES;
+    }
+    if ([tag isEqualToString:@"video"])
+    {
+        videoadShows = YES;
+    }
+    if ([tag isEqualToString:@"rewarded"])
+    {
+        rewardedadShows = YES;
+    }
 }
-    
+
 - (void) didFailToShowAdWithTag:(NSString *)tag andError:(NSError *)error
 {
         // Sent when you call `showAd`, but there isn't an ad to be shown.
@@ -143,7 +225,18 @@ using namespace heyzap;
 // Sent when an ad has been clicked.
 - (void) didClickAdWithTag:(NSString *)tag
 {
-    adIsClicked = YES;
+    if ([tag isEqualToString:@"interstitial"])
+    {
+        adIsClicked = YES;
+    }
+    if ([tag isEqualToString:@"video"])
+    {
+        videoadIsClicked = YES;
+    }
+    if ([tag isEqualToString:@"rewarded"])
+    {
+        rewardedadIsClicked = YES;
+    }
 }
 
 - (void) didCompleteAdWithTag: (NSString *)tag
@@ -174,11 +267,20 @@ namespace heyzap {
         if(adController == NULL)
         {
             adController = [[HeyzapController alloc] init];
+            
         }
         
         heyzapID = [NSString stringWithUTF8String:HeyzapID];
         
         [adController initWithID:heyzapID];
+    }
+    
+    void fetchInterstitial()
+    {
+        if(adController!=NULL)
+        {
+            [adController fetchInterstitialAd];
+        }
     }
     
     void showInterstitial()
@@ -229,7 +331,7 @@ namespace heyzap {
         }
     }
     
-//Callbacks
+//Callbacks Interstitial
     
     bool adLoaded()
     {
@@ -277,6 +379,153 @@ namespace heyzap {
             if (adController.adIsClicked)
             {
                 adController.adIsClicked = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool adShows()
+    {
+        if(adController != NULL)
+        {
+            if (adController.adShows)
+            {
+                adController.adShows = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Callbacks Video
+    
+    bool videoadLoaded()
+    {
+        if(adController != NULL)
+        {
+            if (adController.videoadLoaded)
+            {
+                adController.videoadLoaded = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool videoadFailToLoad()
+    {
+        if(adController != NULL)
+        {
+            if (adController.videoadFailToLoad)
+            {
+                adController.videoadFailToLoad = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool videoadClosed()
+    {
+        if(adController != NULL)
+        {
+            if (adController.videoadClosed)
+            {
+                adController.videoadClosed = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool videoadIsClicked()
+    {
+        if(adController != NULL)
+        {
+            if (adController.videoadIsClicked)
+            {
+                adController.videoadIsClicked = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool videoadShows()
+    {
+        if(adController != NULL)
+        {
+            if (adController.videoadShows)
+            {
+                adController.videoadShows = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    //Callbacks Rewarded Video
+    
+    bool rewardedadLoaded()
+    {
+        if(adController != NULL)
+        {
+            if (adController.rewardedadLoaded)
+            {
+                adController.rewardedadLoaded = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool rewardedadFailToLoad()
+    {
+        if(adController != NULL)
+        {
+            if (adController.rewardedadFailToLoad)
+            {
+                adController.rewardedadFailToLoad = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool rewardedadClosed()
+    {
+        if(adController != NULL)
+        {
+            if (adController.rewardedadClosed)
+            {
+                adController.rewardedadClosed = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool rewardedadIsClicked()
+    {
+        if(adController != NULL)
+        {
+            if (adController.rewardedadIsClicked)
+            {
+                adController.rewardedadIsClicked = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool rewardedadShows()
+    {
+        if(adController != NULL)
+        {
+            if (adController.rewardedadShows)
+            {
+                adController.rewardedadShows = NO;
                 return true;
             }
         }
