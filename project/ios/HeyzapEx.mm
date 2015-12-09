@@ -16,7 +16,8 @@ using namespace heyzap;
 
 @interface HeyzapController : UIViewController <HZAdsDelegate, HZIncentivizedAdDelegate>
 {
-    UIViewController *root;
+    UIWindow* window;
+    UIViewController *viewController;
     
     BOOL adLoaded;
     BOOL adFailToLoad;
@@ -91,23 +92,23 @@ using namespace heyzap;
     
     //Incentivized Ads Delegate
     [HZIncentivizedAd setDelegate:self];
-   
-    
+
     return self;
 }
 
 - (void)fetchInterstitialAd
 {
     
-    [HZInterstitialAd fetchForTag:@"interstitial"];
+    [HZInterstitialAd fetchForTag: @"interstitial"];
 }
+
 
 - (void)showInterstitialAd
 {
     
     if ([HZInterstitialAd isAvailableForTag:@"interstitial"])
     {
-
+        
         [HZInterstitialAd showForTag:@"interstitial"];
     }
 }
@@ -183,6 +184,7 @@ using namespace heyzap;
 // Sent when an ad has been removed from view.
 - (void) didHideAdWithTag:(NSString *)tag
 {
+    
     if ([tag isEqualToString:@"interstitial"])
     {
         adClosed = YES;
