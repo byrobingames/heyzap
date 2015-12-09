@@ -64,8 +64,7 @@ public class HeyzapEx extends Extension {
 				Log.d("HeyzapEx","Init Heyzap");
                 HeyzapAds.start(HeyzapId,Extension.mainActivity, HeyzapAds.DISABLE_AUTOMATIC_FETCH);
                 
-                //setCallbacks
-                setupCallbacks();   
+                setupCallbacks();
                 
 			}
 		});	
@@ -517,5 +516,5 @@ public class HeyzapEx extends Extension {
         IncentivizedAd.setOnIncentiveResultListener(incentiveListener);
         
     }
-
+    
 }

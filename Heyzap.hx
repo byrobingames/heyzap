@@ -77,8 +77,8 @@ class Heyzap {
 	}
 	
 	public static function presentMediationDebug() 
-	{	
-			__presentMediationDebug();
+	{
+		__presentMediationDebug();
 	}
 	
 	
@@ -410,5 +410,6 @@ class Heyzap {
 				
         }
         return false;
-    }		
+    }
+		
 }
