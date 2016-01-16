@@ -4,6 +4,16 @@ For Stencyl 3.3 and above
 
 Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This extension allows you to easily integrate Heyzap on your Stencyl game / application. (http://www.stencyl.com)
 
+### Important!!
+
+This extension is using a custum "PROJ.xcodeproj" file to load some bundle files automatically in your IOS game. It wil no harm for your game.
+
+Does not work with the following extensions:
+- Tapdaq Extension
+- Batch Extension
+
+If you want to create a game with this and with above extension, you can ask me and i make it happen for your. Not for FREE.
+
 **TODO**
 - Banner support (Admob, iAd, Facebook Audience Network)
 
