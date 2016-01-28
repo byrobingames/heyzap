@@ -52,7 +52,7 @@
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 
-#define SDK_VERSION @"9.3.3"
+#define SDK_VERSION @"9.3.7"
 
 #if __has_feature(objc_modules)
 @import AdSupport;
@@ -93,9 +93,18 @@ typedef NS_ENUM(NSUInteger, HZAdOptions) {
      */
     HZAdOptionsDisableMedation = 1 << 3, // 8
     /**
-     * Pass this to disable recording of In-App Purchase data
+     *  Pass this to disable recording of In-App Purchase data
      */
     HZAdOptionsDisableAutomaticIAPRecording = 1 << 4, // 16
+    
+    //placeholder for android flag value NATIVE_ADS_ONLY = 1 << 5 // 32
+    // (iOS does not (yet) use this option, but iOS and Android need to keep the same flag values for the sake of Unity, AIR, etc.)
+    
+    /**
+     *  Pass this flag to mark mediated ads as "child-directed". This value will be passed on to networks that support sending such an option (for purposes of the Children's Online Privacy Protection Act (COPPA)).
+     *  Currently, only AdMob is passed this information (see https://developers.google.com/admob/ios/targeting#child-directed_setting ). The AdMob setting will be left alone if this flag is not passed when the Heyzap SDK is started.
+     */
+    HZAdOptionsChildDirectedAds = 1 << 6, // 64
 };
 
 
