@@ -6,12 +6,9 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 ### Important!!
 
-This extension is using a custum "PROJ.xcodeproj" file to load some bundle files automatically in your IOS game. It wil no harm for your game.
+To get it work on IOS you have to Download, Install and Enable “<a href="http://byrobin.nl/store/product/byrobin-extension-manager-stencylopenfl/">byRobin Extension Manager</a>”
 
-Does not work with the following extensions:
-- Tapdaq Extension
-
-If you want to create a game with this and with above extension, you can ask me and i make it happen for your. Not for FREE.
+For iOS it is required to use Multi Touch events.
 
 **TODO**
 - Banner support (Admob, iAd, Facebook Audience Network)
@@ -24,30 +21,39 @@ If you want to create a game with this and with above extension, you can ask me 
   * Rewarded Video Support.
   * Allows you to specify min amount of time between interstitial displays (to avoid annoying your users).
   * Allows you to specify min amount of calls to interstitial before it actually gets displayed (to avoid annoying your users).
-  * Included SDK's: Heyzap SDK,AppLovin, HyprMX, Unityads, Vungle,
-  * Enable the extension to support the SDK's for that Network: AdColony, AdMob, Chartboost, Facebook ads, Leadbolt,   
+  * Included SDK's: Heyzap SDK, HyprMX, iAd
+  * Enable the extension to support the SDK's for that Network: AdColony, AdMob, Chartboost, Facebook ads, Leadbolt,AppLovin, Unityads, Vungle,   
 
 Supported Networks | IOS SDK version | Android SDK version | Notes
 --- | --- | --- | ---
-[**AdMob**](http://community.stencyl.com/index.php/topic,41376.0.html) | See extension | See extension | Enable Admob extension in Stencyl
+**AdMob** | See extension | See extension | Enable Admob extension in Stencyl
 [**AdColony**](http://community.stencyl.com/index.php/topic,40370.0.html) | See extension | See extension |  Enable AdColony extension in Stencyl
-**AppLovin** | v3.1.5  | v6.1.4 | Included in Heyzap extension
+**AppLovin** | See extension  | See extension | Included in Heyzap extension
 [**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | See extension | See extension | Enable Chartboost extension in Stencyl
 [**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See extension | See extension | Enable Facebook Ads extension in Stencyl
-[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | v9.3.7  | v9.3.7  | Enable Heyzap extension in Stencyl
+[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | v9.4.4  | v9.4.4  | Enable Heyzap extension in Stencyl
 **HyprMX** | v68 | v17 | Included in Heyzap extension 
 **iAds (IOS only)** | - | - | Included in Stencyl
 [**Leadbolt**](http://community.stencyl.com/index.php/topic,45093.0.html) | See extension | See extension |  Enable Leadbolt extension in Stencyl
 **MdotM** | - | - | Non SDK needed
-**UnityAds** | v1.5.2 | v1.4.7 | Included in Heyzap extension
-**Vungle** | v3.2.0 | v3.3.2 | Included in Heyzap extension
+**UnityAds** | See extension | See extension | Included in Heyzap extension
+**Vungle** | See extension | See extension | Included in Heyzap extension
 
 ## How to Install
-Download zip file on the right of the screen. ![download](http://www.byrobingames.com/stencyl/heyzap/download.png) on this page https://github.com/byrobingames/heyzap<br />
 
-Install the zip file Go to : http://community.stencyl.com/index.php/topic,30432.0.html
+Go to: http://byrobin.nl/store/product/heyzap-advertising-for-ios-android-stencylopenfl
 
-## Documentation and Blocks Example
+Add the extension to the cart en proceed with checkout. After you successfully placed the order, you will get an e-mail with the download link or go to “My Account” section where you can also find the download link.
+
+Or
+
+Use the "Download Zip" from this page.
+
+Free Extension is named “master.zip” when you download.
+
+Install the zip file: Go to : http://community.stencyl.com/index.php/topic,30432.0.html
+
+## Documentation and Block Examples
 [Heyzap WIKI](https://github.com/byrobingames/heyzap/wiki)
 
 ### Error on compiling

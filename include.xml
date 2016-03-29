@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension>
+<project>
 	<section if="android">
         <classpath name="src" />
 		
@@ -8,44 +8,15 @@
         <android extension="com.byrobin.heyzap.HeyzapEx" />
 	</section>
 	<section if="ios">
+        
+        <echo value='|----------------------------------------------------------------------------|' />
+        <echo value='| HeyZap: Enable byRobin Extension manager in "Setting->Extension"           |' />
+        <echo value='|----------------------------------------------------------------------------|' />
+        
 		<ndll name="heyzap" />
         
-        <dependency name="Accelerate.framework" />
-		<dependency name="AdSupport.framework" />
-		<dependency name="AudioToolbox.framework" />
-		<dependency name="AVFoundation.framework" />
-		<dependency name="CoreGraphics.framework" />
-        <dependency name="CoreLocation.framework" />
-		<dependency name="CoreMedia.framework" />
-		<dependency name="CoreTelephony.framework" />
-		<dependency name="EventKit.framework" />
-		<dependency name="EventKitUI.framework" />
-        <dependency name="iAd.framework" />
-		<dependency name="MessageUI.framework" />
-        <dependency name="MobileCoreServices.framework" />
-        <dependency name="QuartzCore.framework" />
-        <dependency name="Security.framework" />
-        <dependency name="Social.framework" />
-		<dependency name="StoreKit.framework" />
-		<dependency name="SystemConfiguration.framework" />
-        <dependency name="Webkit.framework" />
-        
-        <dependency path="frameworks/HeyzapAds.framework"/>
-        <dependency path="frameworks/UnityAds.framework"/>
+        <dependency path="frameworks/HeyzapAds.framework"/>=
         <dependency path="frameworks/HyprMX.framework" />
-        <dependency name="frameworks/libAppLovinSdk.a" />
-        <template path="frameworks/libAppLovinSdk.a" rename="lib/arm64/libAppLovinSdk.a" />
-        <template path="frameworks/libAppLovinSdk.a" rename="lib/armv7/libAppLovinSdk.a" />
-        <template path="frameworks/libAppLovinSdk.a" rename="lib/i386/libAppLovinSdk.a" />
-        <template path="frameworks/libAppLovinSdk.a" rename="lib/x86_64/libAppLovinSdk.a" />
-        
-        <dependency name="xml2" />
-        <dependency name="sqlite3" />
-        <dependency name="z" />
-        
-        <ios linker-flags="-ObjC" />
-        
-        <template path="templates" />
         
 	</section>
-</extension>
+</project>

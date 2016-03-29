@@ -1,6 +1,7 @@
 package;
 
 import openfl.Lib;
+import openfl.events.FocusEvent;
 import com.stencyl.behavior.Script;
 
 class Heyzap {
@@ -111,7 +112,7 @@ class Heyzap {
 			__rewardedadFailedToLoad = cpp.Lib.load("heyzap","heyzap_rewardedad_failed",0);
 			__rewardedadClosed = cpp.Lib.load("heyzap","heyzap_rewardedad_closed",0);
 			__rewardedadClicked = cpp.Lib.load("heyzap","heyzap_rewardedad_clicked",0);
-			__rewardedadShows = cpp.Lib.load("heyzap","heyzap_ad_rewardedshows",0);
+			__rewardedadShows = cpp.Lib.load("heyzap","heyzap_rewardedad_shows",0);
 			__rewardedVideoComplete = cpp.Lib.load("heyzap","heyzap_rewardedvideo_complete",0);
 			__rewardedVideoFailToComplete = cpp.Lib.load("heyzap","heyzap_rewardedvideo_failtocomplete",0);
 

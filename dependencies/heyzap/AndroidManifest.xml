@@ -4,26 +4,14 @@
     <!-- Required by AppLovin, Heyzap Ad Network, HyprMX, InMobi, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
-    <!-- Required by Vungle -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    
     <!-- Required by AppLovin, Heyzap Ad Network, HyprMX, InMobi, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.INTERNET" />
-    
-    <!-- Required by AppLovin -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    
-    <!-- Required by AppLovin -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     
     <!-- Required by AppLovin, HyprMX, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
     <application>
         
-        <!-- AppLovin -->
-        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
-        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
         
         <!-- HyprMX -->
         <!-- Note: It may not be necessary to add the HyprMX manifest entries if the HyprMX SDK Android project has been attached to your project as a library -->
@@ -43,13 +31,6 @@
                 <action android:name="com.inmobi.share.id" />
             </intent-filter>
         </receiver>
-        
-        <!-- UnityAds -->
-        <activity android:name="com.unity3d.ads.android.view.UnityAdsFullscreenActivity"  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:hardwareAccelerated="true" />
-        
-        <!-- Vungle -->
-        <activity android:name="com.vungle.publisher.FullScreenAdActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <service android:name="com.vungle.publisher.VungleService"/>
         
         <!-- Heyzap Ad Network -->
         <activity android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />

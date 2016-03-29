@@ -14,11 +14,8 @@
 
 using namespace heyzap;
 
-@interface HeyzapController : UIViewController <HZAdsDelegate, HZIncentivizedAdDelegate>
-{
-    UIWindow* window;
-    UIViewController *viewController;
-    
+@interface HeyzapController : NSObject <HZAdsDelegate, HZIncentivizedAdDelegate>
+{    
     BOOL adLoaded;
     BOOL adFailToLoad;
     BOOL adClosed;
@@ -37,6 +34,15 @@ using namespace heyzap;
     BOOL completeRewardedVideo;
     BOOL failToCompleteRewardedVideo;
 }
+
+- (id)initWithID:(NSString*)ID;
+- (void)fetchInterstitialAd;
+- (void)showInterstitialAd;
+- (void)fetchVideoAd;
+- (void)showVideoAd;
+- (void)fetchRewardedVideoAd;
+- (void)showRewardedVideoAd;
+- (void)showMediationDebugController;
 
 @property (nonatomic, assign) BOOL adLoaded;
 @property (nonatomic, assign) BOOL adFailToLoad;
@@ -108,7 +114,6 @@ using namespace heyzap;
     
     if ([HZInterstitialAd isAvailableForTag:@"interstitial"])
     {
-        
         [HZInterstitialAd showForTag:@"interstitial"];
     }
 }
@@ -120,7 +125,10 @@ using namespace heyzap;
 
 - (void)showVideoAd
 {
-    [HZVideoAd showForTag:@"video"];
+    if ([HZVideoAd isAvailableForTag:@"video"])
+    {
+        [HZVideoAd showForTag:@"video"];
+    }
 }
 
 - (void)fetchRewardedVideoAd
@@ -130,7 +138,10 @@ using namespace heyzap;
 
 - (void)showRewardedVideoAd
 {
-    [HZIncentivizedAd showForTag:@"rewarded"];
+    if ([HZIncentivizedAd isAvailableForTag:@"rewarded"])
+    {
+        [HZIncentivizedAd showForTag:@"rewarded"];
+    }
 }
 
 - (void)showMediationDebugController
@@ -221,7 +232,6 @@ using namespace heyzap;
 {
         // Sent when you call `showAd`, but there isn't an ad to be shown.
         // Includes an NSError object describing the reason why.
-    
 }
     
 // Sent when an ad has been clicked.
@@ -261,75 +271,75 @@ using namespace heyzap;
 
 namespace heyzap {
 	
-	static HeyzapController *adController;
+	static HeyzapController *heyzapController;
     static NSString *heyzapID;
     
 	void init(const char *HeyzapID){
         
-        if(adController == NULL)
+        if(heyzapController == NULL)
         {
-            adController = [[HeyzapController alloc] init];
+            heyzapController = [[HeyzapController alloc] init];
             
         }
         
         heyzapID = [NSString stringWithUTF8String:HeyzapID];
         
-        [adController initWithID:heyzapID];
+        [heyzapController initWithID:heyzapID];
     }
     
     void fetchInterstitial()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController fetchInterstitialAd];
+            [heyzapController fetchInterstitialAd];
         }
     }
     
     void showInterstitial()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController showInterstitialAd];
+            [heyzapController showInterstitialAd];
         }
     }
     
     void fetchVideo()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController fetchVideoAd];
+            [heyzapController fetchVideoAd];
         }
     }
     
     void showVideo()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController showVideoAd];
+            [heyzapController showVideoAd];
         }
     }
     
     void fetchRewardedVideo()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController fetchRewardedVideoAd];
+            [heyzapController fetchRewardedVideoAd];
         }
     }
     
     void showRewardedVideo()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController showRewardedVideoAd];
+            [heyzapController showRewardedVideoAd];
         }
     }
     
     void presentMediationDebug()
     {
-        if(adController!=NULL)
+        if(heyzapController!=NULL)
         {
-            [adController showMediationDebugController];
+            [heyzapController showMediationDebugController];
         }
     }
     
@@ -337,11 +347,11 @@ namespace heyzap {
     
     bool adLoaded()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.adLoaded)
+            if (heyzapController.adLoaded)
             {
-                adController.adLoaded = NO;
+                heyzapController.adLoaded = NO;
                 return true;
             }
         }
@@ -350,11 +360,11 @@ namespace heyzap {
     
     bool adFailToLoad()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.adFailToLoad)
+            if (heyzapController.adFailToLoad)
             {
-                adController.adFailToLoad = NO;
+                heyzapController.adFailToLoad = NO;
                 return true;
             }
         }
@@ -363,11 +373,11 @@ namespace heyzap {
 
     bool adClosed()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.adClosed)
+            if (heyzapController.adClosed)
             {
-                adController.adClosed = NO;
+                heyzapController.adClosed = NO;
                 return true;
             }
         }
@@ -376,11 +386,11 @@ namespace heyzap {
     
     bool adIsClicked()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.adIsClicked)
+            if (heyzapController.adIsClicked)
             {
-                adController.adIsClicked = NO;
+                heyzapController.adIsClicked = NO;
                 return true;
             }
         }
@@ -389,11 +399,11 @@ namespace heyzap {
     
     bool adShows()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.adShows)
+            if (heyzapController.adShows)
             {
-                adController.adShows = NO;
+                heyzapController.adShows = NO;
                 return true;
             }
         }
@@ -404,11 +414,11 @@ namespace heyzap {
     
     bool videoadLoaded()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.videoadLoaded)
+            if (heyzapController.videoadLoaded)
             {
-                adController.videoadLoaded = NO;
+                heyzapController.videoadLoaded = NO;
                 return true;
             }
         }
@@ -417,11 +427,11 @@ namespace heyzap {
     
     bool videoadFailToLoad()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.videoadFailToLoad)
+            if (heyzapController.videoadFailToLoad)
             {
-                adController.videoadFailToLoad = NO;
+                heyzapController.videoadFailToLoad = NO;
                 return true;
             }
         }
@@ -430,11 +440,11 @@ namespace heyzap {
     
     bool videoadClosed()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.videoadClosed)
+            if (heyzapController.videoadClosed)
             {
-                adController.videoadClosed = NO;
+                heyzapController.videoadClosed = NO;
                 return true;
             }
         }
@@ -443,11 +453,11 @@ namespace heyzap {
     
     bool videoadIsClicked()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.videoadIsClicked)
+            if (heyzapController.videoadIsClicked)
             {
-                adController.videoadIsClicked = NO;
+                heyzapController.videoadIsClicked = NO;
                 return true;
             }
         }
@@ -456,11 +466,11 @@ namespace heyzap {
     
     bool videoadShows()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.videoadShows)
+            if (heyzapController.videoadShows)
             {
-                adController.videoadShows = NO;
+                heyzapController.videoadShows = NO;
                 return true;
             }
         }
@@ -471,11 +481,11 @@ namespace heyzap {
     
     bool rewardedadLoaded()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.rewardedadLoaded)
+            if (heyzapController.rewardedadLoaded)
             {
-                adController.rewardedadLoaded = NO;
+                heyzapController.rewardedadLoaded = NO;
                 return true;
             }
         }
@@ -484,11 +494,11 @@ namespace heyzap {
     
     bool rewardedadFailToLoad()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.rewardedadFailToLoad)
+            if (heyzapController.rewardedadFailToLoad)
             {
-                adController.rewardedadFailToLoad = NO;
+                heyzapController.rewardedadFailToLoad = NO;
                 return true;
             }
         }
@@ -497,11 +507,11 @@ namespace heyzap {
     
     bool rewardedadClosed()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.rewardedadClosed)
+            if (heyzapController.rewardedadClosed)
             {
-                adController.rewardedadClosed = NO;
+                heyzapController.rewardedadClosed = NO;
                 return true;
             }
         }
@@ -510,11 +520,11 @@ namespace heyzap {
     
     bool rewardedadIsClicked()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.rewardedadIsClicked)
+            if (heyzapController.rewardedadIsClicked)
             {
-                adController.rewardedadIsClicked = NO;
+                heyzapController.rewardedadIsClicked = NO;
                 return true;
             }
         }
@@ -523,11 +533,11 @@ namespace heyzap {
     
     bool rewardedadShows()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.rewardedadShows)
+            if (heyzapController.rewardedadShows)
             {
-                adController.rewardedadShows = NO;
+                heyzapController.rewardedadShows = NO;
                 return true;
             }
         }
@@ -536,11 +546,11 @@ namespace heyzap {
     
     bool completeRewardedVideo()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.completeRewardedVideo)
+            if (heyzapController.completeRewardedVideo)
             {
-                adController.completeRewardedVideo = NO;
+                heyzapController.completeRewardedVideo = NO;
                 return true;
             }
         }
@@ -549,11 +559,11 @@ namespace heyzap {
     
     bool failToCompleteRewardedVideo()
     {
-        if(adController != NULL)
+        if(heyzapController != NULL)
         {
-            if (adController.failToCompleteRewardedVideo)
+            if (heyzapController.failToCompleteRewardedVideo)
             {
-                adController.failToCompleteRewardedVideo = NO;
+                heyzapController.failToCompleteRewardedVideo = NO;
                 return true;
             }
         }
