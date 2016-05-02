@@ -1,6 +1,6 @@
-name=HeyZap Advertisement (2.3) (byRobin)
+name=HeyZap Advertisement (2.4) (byRobin)
 description=Implements Heyzap on iOS and Android.
 author=Robin Schaafsma
 website=http://www.byrobingames.com
-version=2.3
+version=2.4
 compatibility=mobile
