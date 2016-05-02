@@ -25,12 +25,12 @@
         </service>
         
         <!-- InMobi -->
-        <activity android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
+        <!--<activity android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" />
         <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true" >
             <intent-filter>
                 <action android:name="com.inmobi.share.id" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
         
         <!-- Heyzap Ad Network -->
         <activity android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
