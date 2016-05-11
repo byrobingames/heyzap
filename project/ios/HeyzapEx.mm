@@ -15,7 +15,8 @@
 using namespace heyzap;
 
 @interface HeyzapController : NSObject <HZAdsDelegate, HZIncentivizedAdDelegate>
-{    
+{
+    UIViewController *heyzapViewController;
     BOOL adLoaded;
     BOOL adFailToLoad;
     BOOL adClosed;
@@ -114,7 +115,22 @@ using namespace heyzap;
     
     if ([HZInterstitialAd isAvailableForTag:@"interstitial"])
     {
-        [HZInterstitialAd showForTag:@"interstitial"];
+        
+        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        heyzapViewController = [[UIViewController alloc] init];
+        
+        HZShowOptions *options = [[HZShowOptions alloc] init];
+        options.viewController = heyzapViewController;
+        options.tag = @"interstitial";
+        
+        [window addSubview: heyzapViewController.view];
+        [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
+         {
+             [HZInterstitialAd showWithOptions:options];
+         }];
+        
+        
+        //[HZInterstitialAd showForTag:@"interstitial"];
     }
 }
 
@@ -127,7 +143,20 @@ using namespace heyzap;
 {
     if ([HZVideoAd isAvailableForTag:@"video"])
     {
-        [HZVideoAd showForTag:@"video"];
+        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        heyzapViewController = [[UIViewController alloc] init];
+        
+        HZShowOptions *options = [[HZShowOptions alloc] init];
+        options.viewController = heyzapViewController;
+        options.tag = @"video";
+        
+        [window addSubview: heyzapViewController.view];
+        [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
+         {
+             [HZVideoAd showWithOptions:options];
+         }];
+        
+        //[HZVideoAd showForTag:@"video"];
     }
 }
 
@@ -140,7 +169,20 @@ using namespace heyzap;
 {
     if ([HZIncentivizedAd isAvailableForTag:@"rewarded"])
     {
-        [HZIncentivizedAd showForTag:@"rewarded"];
+        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        heyzapViewController = [[UIViewController alloc] init];
+        
+        HZShowOptions *options = [[HZShowOptions alloc] init];
+        options.viewController = heyzapViewController;
+        options.tag = @"rewarded";
+        
+        [window addSubview: heyzapViewController.view];
+        [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
+         {
+             [HZIncentivizedAd showWithOptions:options];
+         }];
+        
+        //[HZIncentivizedAd showForTag:@"rewarded"];
     }
 }
 
@@ -195,6 +237,12 @@ using namespace heyzap;
 // Sent when an ad has been removed from view.
 - (void) didHideAdWithTag:(NSString *)tag
 {
+    [heyzapViewController dismissViewControllerAnimated:YES completion:^(void)
+     {
+         UIWindow *window = [UIApplication sharedApplication].keyWindow;
+         [heyzapViewController.view removeFromSuperview];
+         [window makeKeyAndVisible];
+     }];
     
     if ([tag isEqualToString:@"interstitial"])
     {

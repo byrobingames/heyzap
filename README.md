@@ -8,8 +8,6 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 To get it work on IOS you have to Download, Install and Enable “<a href="http://byrobin.nl/store/product/byrobin-extension-manager-stencylopenfl/">byRobin Extension Manager</a>”
 
-For iOS it is required to use Multi Touch events.
-
 **TODO**
 - Banner support (Admob, iAd, Facebook Audience Network)
 
