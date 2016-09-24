@@ -29,7 +29,7 @@ Supported Networks | IOS SDK version | Android SDK version | Notes
 **AppLovin** | See extension  | See extension | Included in Heyzap extension
 [**Chartboost**](http://community.stencyl.com/index.php/topic,25006.0.html) | See extension | See extension | Enable Chartboost extension in Stencyl
 [**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See extension | See extension | Enable Facebook Ads extension in Stencyl
-[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | v9.5.5  | v9.5.5  | Enable Heyzap extension in Stencyl
+[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | v9.6.8  | v9.6.8  | Enable Heyzap extension in Stencyl
 **HyprMX** | v68 | v17 | Included in Heyzap extension 
 **iAds (IOS only)** | - | - | Included in Stencyl
 [**Leadbolt**](http://community.stencyl.com/index.php/topic,45093.0.html) | See extension | See extension |  Enable Leadbolt extension in Stencyl
