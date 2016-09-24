@@ -95,7 +95,7 @@ using namespace heyzap;
     [HZInterstitialAd setDelegate: self];
     
     // Video Ads Delegate
-    [HZVideoAd setDelegate:self];
+    //[HZVideoAd setDelegate:self];
     
     //Incentivized Ads Delegate
     [HZIncentivizedAd setDelegate:self];

@@ -13,10 +13,14 @@
         <echo value='| HeyZap: Enable byRobin Extension manager in "Setting->Extension"           |' />
         <echo value='|----------------------------------------------------------------------------|' />
         
-		<ndll name="heyzap" />
+		
+        <setenv name="HEYZAP_ENABLED" value="true" />
         
-        <dependency path="frameworks/HeyzapAds.framework"/>=
+        <ndll name="heyzap" />
+        
+        <dependency path="frameworks/HeyzapAds.framework"/>
         <dependency path="frameworks/HyprMX.framework" />
+        
         
 	</section>
 </project>
