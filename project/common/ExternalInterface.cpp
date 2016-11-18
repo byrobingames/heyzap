@@ -31,18 +31,6 @@ static value heyzap_interstitial_show(){
 }
 DEFINE_PRIM(heyzap_interstitial_show,0);
 
-static value heyzap_video_fetch(){
-    fetchVideo();
-    return alloc_null();
-}
-DEFINE_PRIM(heyzap_video_fetch,0);
-
-static value heyzap_video_show(){
-    showVideo();
-    return alloc_null();
-}
-DEFINE_PRIM(heyzap_video_show,0);
-
 static value heyzap_rewardedvideo_fetch(){
     fetchRewardedVideo();
     return alloc_null();
@@ -102,46 +90,6 @@ static value heyzap_ad_shows()
 }
 DEFINE_PRIM(heyzap_ad_shows, 0);
 
-//Callbacks video
-static value heyzap_videoad_loaded()
-{
-    if (heyzap::videoadLoaded())
-        return val_true;
-    return val_false;
-}
-DEFINE_PRIM(heyzap_videoad_loaded, 0);
-
-static value heyzap_videoad_failed()
-{
-    if (heyzap::videoadFailToLoad())
-        return val_true;
-    return val_false;
-}
-DEFINE_PRIM(heyzap_videoad_failed, 0);
-
-static value heyzap_videoad_closed()
-{
-    if (heyzap::videoadClosed())
-        return val_true;
-    return val_false;
-}
-DEFINE_PRIM(heyzap_videoad_closed, 0);
-
-static value heyzap_videoad_clicked()
-{
-    if (heyzap::videoadIsClicked())
-        return val_true;
-    return val_false;
-}
-DEFINE_PRIM(heyzap_videoad_clicked, 0);
-
-static value heyzap_videoad_shows()
-{
-    if (heyzap::videoadShows())
-        return val_true;
-    return val_false;
-}
-DEFINE_PRIM(heyzap_videoad_shows, 0);
 
 //Callbacks rewarded video
 static value heyzap_rewardedad_loaded()

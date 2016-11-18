@@ -10,7 +10,6 @@ package com.byrobin.heyzap;
 import com.heyzap.sdk.ads.HeyzapAds;
 import com.heyzap.sdk.ads.IncentivizedAd;
 import com.heyzap.sdk.ads.InterstitialAd;
-import com.heyzap.sdk.ads.VideoAd;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -36,11 +35,6 @@ public class HeyzapEx extends Extension {
     private static boolean adClicked =false;
     private static boolean adClosed =false;
     private static boolean adShows =false;
-    private static boolean videoadLoaded = false;
-    private static boolean videoadFailedToLoad = false;
-    private static boolean videoadClicked =false;
-    private static boolean videoadClosed =false;
-    private static boolean videoadShows =false;
     private static boolean rewardedadLoaded = false;
     private static boolean rewardedadFailedToLoad = false;
     private static boolean rewardedadClicked =false;
@@ -49,6 +43,8 @@ public class HeyzapEx extends Extension {
     private static boolean completeRewardedVideo =false;
     private static boolean failToCompleteRewardedVideo =false;
 	private static String HeyzapId=null;
+    
+    private static String _tag=null;
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,8 +72,9 @@ public class HeyzapEx extends Extension {
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
+                    _tag = "interstitial";
 
-                    InterstitialAd.fetch("interstitial");
+                    InterstitialAd.fetch();
             }
         });
         Log.d("HeyzapEx","Fetch Interstitial End");
@@ -90,9 +87,9 @@ public class HeyzapEx extends Extension {
 			public void run()
             {
                 
-                if(InterstitialAd.isAvailable("interstitial"))
+                if(InterstitialAd.isAvailable())
                 {
-                    InterstitialAd.display(Extension.mainActivity, "interstitial");
+                    InterstitialAd.display(Extension.mainActivity);
                 }
                 
             }
@@ -100,34 +97,6 @@ public class HeyzapEx extends Extension {
 		Log.d("HeyzapEx","Show Interstitial End");
 	}
     
-    static public void fetchVideo() {
-        Log.d("HeyzapEx","Fetch Video Begin");
-        if(HeyzapId=="") return;
-        Extension.mainActivity.runOnUiThread(new Runnable() {
-            public void run()
-            {
-                    VideoAd.fetch("video");
-            }
-        });
-        Log.d("HeyzapEx","Fetch Video End");
-    }
-    
-    static public void showVideo() {
-        Log.d("HeyzapEx","Show Video Begin");
-        if(HeyzapId=="") return;
-        Extension.mainActivity.runOnUiThread(new Runnable() {
-            public void run()
-            {
-                
-                if(VideoAd.isAvailable("video"))
-                {
-                    VideoAd.display(Extension.mainActivity, "video");
-                }
-                
-            }
-        });
-        Log.d("HeyzapEx","Show Video End");
-    }
 	
     static public void fetchRewardedVideo() {
         Log.d("HeyzapEx","Fetch Rewarded Video Begin");
@@ -135,7 +104,8 @@ public class HeyzapEx extends Extension {
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
-                    IncentivizedAd.fetch("rewarded");
+                _tag = "rewarded";
+                IncentivizedAd.fetch();
             }
         });
         Log.d("HeyzapEx","Fetch Rewarded Video End");
@@ -148,9 +118,9 @@ public class HeyzapEx extends Extension {
             public void run()
             {
                 
-                if(IncentivizedAd.isAvailable("rewarded"))
+                if(IncentivizedAd.isAvailable())
                 {
-                    IncentivizedAd.display(Extension.mainActivity, "rewarded");
+                    IncentivizedAd.display(Extension.mainActivity);
                 }
                 
             }
@@ -224,58 +194,6 @@ public class HeyzapEx extends Extension {
         if (adShows)
         {
             adShows = false;
-            return true;
-        }
-        return false;
-    }
-    
-    //callback video
-    static public boolean videoadIsLoaded()
-    {
-        if (videoadLoaded)
-        {
-            videoadLoaded = false;
-            return true;
-        }
-        return false;
-    }
-    
-    static public boolean videoadFailedToLoad()
-    {
-        if (videoadFailedToLoad)
-        {
-            videoadFailedToLoad = false;
-            return true;
-        }
-        return false;
-    }
-    
-    static public boolean videoadClosed()
-    {
-        if (videoadClosed)
-        {
-            videoadClosed = false;
-            return true;
-        }
-        return false;
-    }
-    
-    
-    static public boolean videoadClicked()
-    {
-        if (videoadClicked)
-        {
-            videoadClicked = false;
-            return true;
-        }
-        return false;
-    }
-    
-    static public boolean videoadShows()
-    {
-        if (videoadShows)
-        {
-            videoadShows = false;
             return true;
         }
         return false;
@@ -369,20 +287,16 @@ public class HeyzapEx extends Extension {
             public void onAvailable(String tag) {
                 /* An ad you fetched is now available.
                  * */
-                if(tag.equals("interstitial"))
+                if(_tag.equals("interstitial"))
                 {
                     adLoaded = true;
                     adFailedToLoad = false;
-                } else if(tag.equals("video"))
-                {
-                    videoadLoaded = true;
-                    videoadFailedToLoad = false;
-                }else if(tag.equals("rewarded"))
+                } else if(_tag.equals("rewarded"))
                 {
                     rewardedadLoaded = true;
                     rewardedadFailedToLoad = false;
                 }
-                //Log.d("HeyzapEx","Received Interstitial!");
+                Log.d("HeyzapEx","Received ad with Tag:" + _tag);
                 
             }
             
@@ -390,13 +304,10 @@ public class HeyzapEx extends Extension {
             public void onShow(String tag) {
                 /* An ad has been successfully shown to the user.
                  * */
-                if(tag.equals("interstitial"))
+                if(_tag.equals("interstitial"))
                 {
                     adShows = true;
-                } else if(tag.equals("video"))
-                {
-                    videoadShows = true;
-                }else if(tag.equals("rewarded"))
+                } else if(_tag.equals("rewarded"))
                 {
                     rewardedadShows = true;
                 }
@@ -408,13 +319,10 @@ public class HeyzapEx extends Extension {
                 /* Somebody clicked on an ad. Note: when an ad is clicked on, the user will temporarily leave your app to
                  * go to the play store.
                  * */
-                if(tag.equals("interstitial"))
+                if(_tag.equals("interstitial"))
                 {
                     adClicked = true;
-                } else if(tag.equals("video"))
-                {
-                    videoadClicked= true;
-                }else if(tag.equals("rewarded"))
+                } else if(_tag.equals("rewarded"))
                 {
                     rewardedadClicked = true;
                 }
@@ -424,13 +332,10 @@ public class HeyzapEx extends Extension {
             public void onHide(String tag) {
                 /* The user has hidden the ad and has been returned to your app.
                  * */
-                if(tag.equals("interstitial"))
+                if(_tag.equals("interstitial"))
                 {
                     adClosed = true;
-                } else if(tag.equals("video"))
-                {
-                    videoadClosed = true;
-                }else if(tag.equals("rewarded"))
+                } else if(_tag.equals("rewarded"))
                 {
                     rewardedadClosed = true;
                 }
@@ -445,20 +350,16 @@ public class HeyzapEx extends Extension {
                  * b) your app has not been added to Heyzap's database yet (contact sales or add your game from the dashboard).
                  * c) the ad server could not find a good enough ad
                  * */
-                if(tag.equals("interstitial"))
+                if(_tag.equals("interstitial"))
                 {
                     adFailedToLoad = true;
                     adLoaded = false;
-                } else if(tag.equals("video"))
-                {
-                    videoadFailedToLoad = true;
-                    videoadLoaded = false;
-                }else if(tag.equals("rewarded"))
+                } else if(_tag.equals("rewarded"))
                 {
                     rewardedadFailedToLoad = true;
                     rewardedadLoaded = false;
                 }
-                Log.d("HeyzapEx","Fail to get Interstitial");
+                Log.d("HeyzapEx","Fail to get Interstitial tag: " + tag);
                 
             }
             
@@ -507,9 +408,6 @@ public class HeyzapEx extends Extension {
         
         // Intertitial Ad listener
         InterstitialAd.setOnStatusListener(statusListener);
-        
-        // Video Ad listener
-        VideoAd.setOnStatusListener(statusListener);
         
         // IncentivizedAd listener
         IncentivizedAd.setOnStatusListener(statusListener);

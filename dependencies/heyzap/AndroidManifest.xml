@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="::APP_PACKAGE::" android:versionCode="::APP_BUILD_NUMBER::" android:versionName="::APP_VERSION::" android:installLocation="::ANDROID_INSTALL_LOCATION::">
     
-    <!-- Required by AppLovin, Heyzap Ad Network, HyprMX, InMobi, UnityAds, and Vungle -->
+    <!-- Required by AdMob, AppLovin, Facebook Audience Network, Fyber Marketplace, HyprMX, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
-    <!-- Required by AppLovin, Heyzap Ad Network, HyprMX, InMobi, UnityAds, and Vungle -->
+    <!-- Required by AdMob, AppLovin, Facebook Audience Network, Fyber Marketplace, HyprMX, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.INTERNET" />
     
-    <!-- Required by AppLovin, HyprMX, UnityAds, and Vungle -->
+    <!-- Required by AppLovin, HyprMX, and Vungle -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
     <application>
-        
         
         <!-- HyprMX -->
         <activity android:name="com.hyprmx.android.sdk.activity.HyprMXOfferViewerActivity" android:configChanges="orientation|screenSize|keyboardHidden|keyboard|smallestScreenSize|uiMode|fontScale|screenLayout|locale" android:label="HyprMX SDK" android:launchMode="singleTop" />
@@ -19,19 +18,18 @@
         <activity android:name="com.hyprmx.android.sdk.activity.HyprMXNoOffersActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name="com.hyprmx.android.sdk.activity.HyprMXWebTrafficActivity" android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name="com.hyprmx.android.sdk.activity.HyprMXVideoPlayerActivity" android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name="com.fyber.mediation.hyprmx.rv.HyprMXVideoMediationActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize" />
         
-        <!-- Heyzap Ad Network -->
-        <activity android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
-        <activity android:name="com.heyzap.sdk.ads.HeyzapVideoActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
-        <activity android:name="com.heyzap.sdk.ads.HeyzapProxyActivity" />
-        <activity android:name="com.heyzap.sdk.ads.VASTActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
+        <!-- Fyber Marketplace -->
+        <activity android:name="com.heyzap.sdk.ads.HeyzapIncentivizedActivity" android:configChanges="screenSize|orientation" android:theme="@android:style/Theme.Translucent" android:hardwareAccelerated="true" />
+        <activity android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity" android:configChanges="screenSize|orientation" android:theme="@android:style/Theme.Translucent" />
         <activity android:name="com.heyzap.sdk.ads.MediationTestActivity" />
-        <receiver android:name="com.heyzap.sdk.ads.PackageAddedReceiver">
-            <intent-filter>
-                <data android:scheme="package"/>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-            </intent-filter>
-        </receiver>
+        <activity android:name="com.fyber.ads.ofw.OfferWallUnityActivity" android:configChanges="orientation|screenSize" />
+        <service android:name="com.fyber.cache.CacheVideoDownloadService" android:exported="false" />
+        <meta-data android:name="FYBVideoPlayerOptionCloseButtonDelay" android:value="-1" />
+        
+        
         
     </application>
  

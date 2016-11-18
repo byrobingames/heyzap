@@ -8,19 +8,19 @@
         <android extension="com.byrobin.heyzap.HeyzapEx" />
 	</section>
 	<section if="ios">
+        <setenv name="HEYZAP_ENABLED" value="true" />
+        <set name="heyzap" />
         
         <echo value='|----------------------------------------------------------------------------|' />
         <echo value='| HeyZap: Enable byRobin Extension manager in "Setting->Extension"           |' />
         <echo value='|----------------------------------------------------------------------------|' />
         
-		
-        <setenv name="HEYZAP_ENABLED" value="true" />
-        
         <ndll name="heyzap" />
         
         <dependency path="frameworks/HeyzapAds.framework"/>
-        <dependency path="frameworks/HyprMX.framework" />
-        
+        <dependency path="frameworks/FYBHZMediationTestSuite.framework"/>
+        <dependency path="frameworks/Fyber_AdMob_7.10.0-r1.framework"/>
+        <dependency path="frameworks/Fyber_HyprMX_4.1.0.68-r1.framework"/>
         
 	</section>
 </project>

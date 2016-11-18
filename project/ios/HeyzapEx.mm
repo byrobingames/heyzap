@@ -8,25 +8,18 @@
 #include <HeyzapEx.h>
 #import <UIKit/UIKit.h>
 #import <HeyzapAds/HeyzapAds.h>
-#import <HeyzapAds/HZInterstitialAd.h>
-#import <HeyzapAds/HZVideoAd.h>
-#import <HeyzapAds/HZShowOptions.h>
 
 using namespace heyzap;
 
 @interface HeyzapController : NSObject <HZAdsDelegate, HZIncentivizedAdDelegate>
 {
     UIViewController *heyzapViewController;
+    NSString *_tag;
     BOOL adLoaded;
     BOOL adFailToLoad;
     BOOL adClosed;
     BOOL adClicked;
     BOOL adShows;
-    BOOL videoadLoaded;
-    BOOL videoadFailToLoad;
-    BOOL videoadClosed;
-    BOOL videoadClicked;
-    BOOL videoadShows;
     BOOL rewardedadLoaded;
     BOOL rewardedadFailToLoad;
     BOOL rewardedadClosed;
@@ -39,8 +32,6 @@ using namespace heyzap;
 - (id)initWithID:(NSString*)ID;
 - (void)fetchInterstitialAd;
 - (void)showInterstitialAd;
-- (void)fetchVideoAd;
-- (void)showVideoAd;
 - (void)fetchRewardedVideoAd;
 - (void)showRewardedVideoAd;
 - (void)showMediationDebugController;
@@ -50,11 +41,6 @@ using namespace heyzap;
 @property (nonatomic, assign) BOOL adClosed;
 @property (nonatomic, assign) BOOL adIsClicked;
 @property (nonatomic, assign) BOOL adShows;
-@property (nonatomic, assign) BOOL videoadLoaded;
-@property (nonatomic, assign) BOOL videoadFailToLoad;
-@property (nonatomic, assign) BOOL videoadClosed;
-@property (nonatomic, assign) BOOL videoadIsClicked;
-@property (nonatomic, assign) BOOL videoadShows;
 @property (nonatomic, assign) BOOL rewardedadLoaded;
 @property (nonatomic, assign) BOOL rewardedadFailToLoad;
 @property (nonatomic, assign) BOOL rewardedadClosed;
@@ -71,11 +57,6 @@ using namespace heyzap;
 @synthesize adClosed;
 @synthesize adIsClicked;
 @synthesize adShows;
-@synthesize videoadLoaded;
-@synthesize videoadFailToLoad;
-@synthesize videoadClosed;
-@synthesize videoadIsClicked;
-@synthesize videoadShows;
 @synthesize rewardedadLoaded;
 @synthesize rewardedadFailToLoad;
 @synthesize rewardedadClosed;
@@ -94,9 +75,6 @@ using namespace heyzap;
     // Interstitial Ads Delegate
     [HZInterstitialAd setDelegate: self];
     
-    // Video Ads Delegate
-    //[HZVideoAd setDelegate:self];
-    
     //Incentivized Ads Delegate
     [HZIncentivizedAd setDelegate:self];
 
@@ -105,85 +83,30 @@ using namespace heyzap;
 
 - (void)fetchInterstitialAd
 {
-    
-    [HZInterstitialAd fetchForTag: @"interstitial"];
+
+    _tag = @"interstitial";
+    [HZInterstitialAd fetch];
 }
 
 
 - (void)showInterstitialAd
 {
     
-    if ([HZInterstitialAd isAvailableForTag:@"interstitial"])
-    {
-        
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
-        heyzapViewController = [[UIViewController alloc] init];
-        
-        HZShowOptions *options = [[HZShowOptions alloc] init];
-        options.viewController = heyzapViewController;
-        options.tag = @"interstitial";
-        
-        [window addSubview: heyzapViewController.view];
-        [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
-         {
-             [HZInterstitialAd showWithOptions:options];
-         }];
-        
-        
-        //[HZInterstitialAd showForTag:@"interstitial"];
-    }
+    [HZInterstitialAd show];
+
 }
 
-- (void)fetchVideoAd
-{
-    [HZVideoAd fetchForTag:@"video"];
-}
-
-- (void)showVideoAd
-{
-    if ([HZVideoAd isAvailableForTag:@"video"])
-    {
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
-        heyzapViewController = [[UIViewController alloc] init];
-        
-        HZShowOptions *options = [[HZShowOptions alloc] init];
-        options.viewController = heyzapViewController;
-        options.tag = @"video";
-        
-        [window addSubview: heyzapViewController.view];
-        [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
-         {
-             [HZVideoAd showWithOptions:options];
-         }];
-        
-        //[HZVideoAd showForTag:@"video"];
-    }
-}
 
 - (void)fetchRewardedVideoAd
 {
-    [HZIncentivizedAd fetchForTag:@"rewarded"];
+    _tag = @"rewarded";
+    [HZIncentivizedAd fetch];
 }
 
 - (void)showRewardedVideoAd
 {
-    if ([HZIncentivizedAd isAvailableForTag:@"rewarded"])
-    {
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
-        heyzapViewController = [[UIViewController alloc] init];
-        
-        HZShowOptions *options = [[HZShowOptions alloc] init];
-        options.viewController = heyzapViewController;
-        options.tag = @"rewarded";
-        
-        [window addSubview: heyzapViewController.view];
-        [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
-         {
-             [HZIncentivizedAd showWithOptions:options];
-         }];
-        
-        //[HZIncentivizedAd showForTag:@"rewarded"];
-    }
+    
+     [HZIncentivizedAd show];
 }
 
 - (void)showMediationDebugController
@@ -195,17 +118,15 @@ using namespace heyzap;
 // Sent when an ad has been loaded and is ready to be displayed.
 - (void) didReceiveAdWithTag:(NSString *)tag
 {
-    if ([tag isEqualToString:@"interstitial"])
+    NSLog(@"HeyzapEx ReceiveAd with tag: %@", tag);
+    
+    if ([_tag isEqualToString:@"interstitial"])
     {
         adLoaded = YES;
         adFailToLoad = NO;
     }
-    if ([tag isEqualToString:@"video"])
-    {
-        videoadLoaded = YES;
-        videoadFailToLoad = NO;
-    }
-    if ([tag isEqualToString:@"rewarded"])
+
+    if ([_tag isEqualToString:@"rewarded"])
     {
         rewardedadLoaded = YES;
         rewardedadFailToLoad = NO;
@@ -216,17 +137,13 @@ using namespace heyzap;
 - (void) didFailToReceiveAdWithTag: (NSString *)tag
 {
     
-    if ([tag isEqualToString:@"interstitial"])
+    if ([_tag isEqualToString:@"interstitial"])
     {
         adFailToLoad = YES;
         adLoaded = NO;
     }
-    if ([tag isEqualToString:@"video"])
-    {
-        videoadFailToLoad = YES;
-        videoadLoaded = NO;
-    }
-    if ([tag isEqualToString:@"rewarded"])
+
+    if ([_tag isEqualToString:@"rewarded"])
     {
         rewardedadFailToLoad = YES;
         rewardedadLoaded = NO;
@@ -237,40 +154,29 @@ using namespace heyzap;
 // Sent when an ad has been removed from view.
 - (void) didHideAdWithTag:(NSString *)tag
 {
-    [heyzapViewController dismissViewControllerAnimated:YES completion:^(void)
-     {
-         UIWindow *window = [UIApplication sharedApplication].keyWindow;
-         [heyzapViewController.view removeFromSuperview];
-         [window makeKeyAndVisible];
-     }];
     
-    if ([tag isEqualToString:@"interstitial"])
+    if ([_tag isEqualToString:@"interstitial"])
     {
         adClosed = YES;
     }
-    if ([tag isEqualToString:@"video"])
-    {
-        videoadClosed = YES;
-    }
-    if ([tag isEqualToString:@"rewarded"])
+   
+    if ([_tag isEqualToString:@"rewarded"])
     {
         rewardedadClosed = YES;
     }
 
+    
 }
 
 
 - (void) didShowAdWithTag:(NSString *)tag {
         // Sent when an ad has been displayed.
-    if ([tag isEqualToString:@"interstitial"])
+    if ([_tag isEqualToString:@"interstitial"])
     {
         adShows = YES;
     }
-    if ([tag isEqualToString:@"video"])
-    {
-        videoadShows = YES;
-    }
-    if ([tag isEqualToString:@"rewarded"])
+    
+    if ([_tag isEqualToString:@"rewarded"])
     {
         rewardedadShows = YES;
     }
@@ -285,15 +191,12 @@ using namespace heyzap;
 // Sent when an ad has been clicked.
 - (void) didClickAdWithTag:(NSString *)tag
 {
-    if ([tag isEqualToString:@"interstitial"])
+    if ([_tag isEqualToString:@"interstitial"])
     {
         adIsClicked = YES;
     }
-    if ([tag isEqualToString:@"video"])
-    {
-        videoadIsClicked = YES;
-    }
-    if ([tag isEqualToString:@"rewarded"])
+    
+    if ([_tag isEqualToString:@"rewarded"])
     {
         rewardedadIsClicked = YES;
     }
@@ -348,22 +251,6 @@ namespace heyzap {
         if(heyzapController!=NULL)
         {
             [heyzapController showInterstitialAd];
-        }
-    }
-    
-    void fetchVideo()
-    {
-        if(heyzapController!=NULL)
-        {
-            [heyzapController fetchVideoAd];
-        }
-    }
-    
-    void showVideo()
-    {
-        if(heyzapController!=NULL)
-        {
-            [heyzapController showVideoAd];
         }
     }
     
@@ -458,73 +345,6 @@ namespace heyzap {
         return false;
     }
 
-    //Callbacks Video
-    
-    bool videoadLoaded()
-    {
-        if(heyzapController != NULL)
-        {
-            if (heyzapController.videoadLoaded)
-            {
-                heyzapController.videoadLoaded = NO;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    bool videoadFailToLoad()
-    {
-        if(heyzapController != NULL)
-        {
-            if (heyzapController.videoadFailToLoad)
-            {
-                heyzapController.videoadFailToLoad = NO;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    bool videoadClosed()
-    {
-        if(heyzapController != NULL)
-        {
-            if (heyzapController.videoadClosed)
-            {
-                heyzapController.videoadClosed = NO;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    bool videoadIsClicked()
-    {
-        if(heyzapController != NULL)
-        {
-            if (heyzapController.videoadIsClicked)
-            {
-                heyzapController.videoadIsClicked = NO;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    bool videoadShows()
-    {
-        if(heyzapController != NULL)
-        {
-            if (heyzapController.videoadShows)
-            {
-                heyzapController.videoadShows = NO;
-                return true;
-            }
-        }
-        return false;
-    }
-    
     //Callbacks Rewarded Video
     
     bool rewardedadLoaded()

@@ -62,31 +62,20 @@ typedef NS_ENUM(NSUInteger, HZAdMobBannerSize){
     HZAdMobBannerSizeFullBanner,
 };
 
-/** The constant for a banner 320 points wide and 50 points high. */
-extern const CGSize HZInMobiBannerSize320x50;
-/** The constant for a banner 468 points wide and 60 points high. */
-extern const CGSize HZInMobiBannerSize468x60;
-/** The constant for a banner 480 points wide and 75 points high. */
-extern const CGSize HZInMobiBannerSize480x75;
-/** The constant for a banner 728 points wide and 90 points high. */
-extern const CGSize HZInMobiBannerSize728x90;
 
-/** The constant for a banner 50 pts in height whose width expands to fill its presentingViewController (default). */
-extern const CGSize HZHeyzapExchangeBannerSizeFlexibleWidthHeight50;
-/** The constant for a banner 32 pts in height whose width expands to fill its presentingViewController. */
-extern const CGSize HZHeyzapExchangeBannerSizeFlexibleWidthHeight32;
-/** The constant for a banner 90 pts in height whose width expands to fill its presentingViewController. */
-extern const CGSize HZHeyzapExchangeBannerSizeFlexibleWidthHeight90;
-/** The constant for a banner 100 pts in height whose width expands to fill its presentingViewController. */
-extern const CGSize HZHeyzapExchangeBannerSizeFlexibleWidthHeight100;
-/** The constant for a banner 320 points wide and 50 points high. */
-extern const CGSize HZHeyzapExchangeBannerSize320x50;
-/** The constant for a banner 468 points wide and 60 points high. */
-extern const CGSize HZHeyzapExchangeBannerSize468x60;
-/** The constant for a banner 480 points wide and 75 points high. */
-extern const CGSize HZHeyzapExchangeBannerSize480x75;
-/** The constant for a banner 728 points wide and 90 points high. */
-extern const CGSize HZHeyzapExchangeBannerSize728x90;
+/**
+ * The size to use for Inmobi banners
+ */
+typedef NS_ENUM(NSUInteger, HZInmobiBannerSize) {
+    HZInmobiBannerSize320x50,
+    HZInmobiBannerSize320x48,
+    HZInmobiBannerSize300x250,
+    HZInmobiBannerSize120x600,
+    HZInmobiBannerSize468x60,
+    HZInmobiBannerSize728x90,
+    HZInmobiBannerSize1024x768
+};
+
 
 @interface HZBannerAdOptions : NSObject <NSCopying>
 
@@ -101,33 +90,12 @@ extern const CGSize HZHeyzapExchangeBannerSize728x90;
 @property (nonatomic) HZAdMobBannerSize admobBannerSize;
 
 /**
- *  The size to use for Heyzap Exchange banners.
- *  Currently, any size is allowed to be requested, but depending on the exchange providers' inventory, an ad may be returned that is scaled or letterboxed to meet your request. Some constants (named `HZHeyzapExchangeBannerSize...`) are provided above for convenience. 
- *  If you would like to provide your own `CGSize`, you may. Using `-1` for the width will indicate to the SDK that the banner should fill the width of the `presentingViewController`.
+ *  The size to use for Inmobi banners.
  */
-@property (nonatomic) CGSize heyzapExchangeBannerSize;
+@property (nonatomic) HZInmobiBannerSize inmobiBannerSize;
 
 /**
- *  InMobi allows setting an arbitrary size to use for banners, but only some intrinsic banner sizes are supported. 
- *  It's recommended that you choose one of the `HZInMobiBannerSize` constants above.
- *  If you choose an unsupported size, InMobi may scale a similar sized ad to the size you requested.
- *
- *  If you don't select a size, a default size is used based on the current orientation and interface idiom:
- *  Portrait iPhones: `HZInMobiBannerSize320x50`
- *  Landscape iPhones: `HZInMobiBannerSize468x60`
- *  iPads: `HZInMobiBannerSize728x90`
- */
-@property (nonatomic) CGSize inMobiBannerSize;
-
-#pragma mark - iAd
-
-// iAd does not offer sizing options. Please refer to the `ADBannerView` documentation for information on ad sizes.
-
-/// @name Other Banner Options
-#pragma mark - Other Banner Options
-
-/**
- *  The view controller to present the ad from. 
+ *  The view controller to present the ad from.
  *
  *  This property is optional. If not set, it defaults to the root view controller of the application.
  *

@@ -13,8 +13,6 @@ class Heyzap {
 	private static var __init:String->Void = function(heyzapId:String){};
 	private static var __fetchInterstitial:Void->Void = function(){};
 	private static var __showInterstitial:Void->Void = function(){};
-	private static var __fetchVideo:Void->Void = function(){};
-	private static var __showVideo:Void->Void = function(){};
 	private static var __fetchRewardedVideo:Void->Void = function(){};
 	private static var __showRewardedVideo:Void->Void = function(){};
 	private static var __presentMediationDebug:Void->Void = function(){};
@@ -24,11 +22,6 @@ class Heyzap {
 	private static var __adClosed:Dynamic;
 	private static var __adClicked:Dynamic;
 	private static var __adShows:Dynamic;
-	private static var __videoadLoaded:Dynamic;
-	private static var __videoadFailedToLoad:Dynamic;
-	private static var __videoadClosed:Dynamic;
-	private static var __videoadClicked:Dynamic;
-	private static var __videoadShows:Dynamic;
 	private static var __rewardedadLoaded:Dynamic;
 	private static var __rewardedadFailedToLoad:Dynamic;
 	private static var __rewardedadClosed:Dynamic;
@@ -50,19 +43,6 @@ class Heyzap {
 		{
 			__showInterstitial();
 		}
-	}
-	
-	
-	public static function videoAd(type:Int) 
-	{
-		if (type == 0)
-		{
-			__fetchVideo();
-		}
-		else if (type == 1)
-		{
-			__showVideo();
-		}	
 	}
 	
 	public static function rewardedVideoAd(type:Int) 
@@ -93,8 +73,6 @@ class Heyzap {
 			__init = cpp.Lib.load("heyzap","heyzap_init",1);
 			__fetchInterstitial = cpp.Lib.load("heyzap","heyzap_interstitial_fetch",0);
 			__showInterstitial = cpp.Lib.load("heyzap","heyzap_interstitial_show",0);
-			__fetchVideo = cpp.Lib.load("heyzap","heyzap_video_fetch",0);
-			__showVideo = cpp.Lib.load("heyzap","heyzap_video_show",0);
 			__fetchRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_fetch",0);
 			__showRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_show",0);
 			__presentMediationDebug = cpp.Lib.load("heyzap","heyzap_presentmediation_debug",0);
@@ -103,11 +81,6 @@ class Heyzap {
 			__adClosed = cpp.Lib.load("heyzap","heyzap_ad_closed",0);
 			__adClicked = cpp.Lib.load("heyzap","heyzap_ad_clicked",0);
 			__adShows = cpp.Lib.load("heyzap","heyzap_ad_shows",0);
-			__videoadLoaded = cpp.Lib.load("heyzap","heyzap_videoad_loaded",0);
-			__videoadFailedToLoad = cpp.Lib.load("heyzap","heyzap_videoad_failed",0);
-			__videoadClosed = cpp.Lib.load("heyzap","heyzap_videoad_closed",0);
-			__videoadClicked = cpp.Lib.load("heyzap","heyzap_videoad_clicked",0);
-			__videoadShows = cpp.Lib.load("heyzap","heyzap_videoad_shows",0);
 			__rewardedadLoaded = cpp.Lib.load("heyzap","heyzap_rewardedad_loaded",0);
 			__rewardedadFailedToLoad = cpp.Lib.load("heyzap","heyzap_rewardedad_failed",0);
 			__rewardedadClosed = cpp.Lib.load("heyzap","heyzap_rewardedad_closed",0);
@@ -130,8 +103,6 @@ class Heyzap {
 			__init = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "init", "(Ljava/lang/String;)V");
 			__fetchInterstitial = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchInterstitial", "()V");
 			__showInterstitial = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showInterstitial", "()V");
-			__fetchVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchVideo", "()V");
-			__showVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showVideo", "()V");
 			__fetchRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchRewardedVideo", "()V");
 			__showRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showRewardedVideo", "()V");
 			__presentMediationDebug = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "presentMediationDebug", "()V");
@@ -216,86 +187,6 @@ class Heyzap {
                 	__adShows = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adShows", "()Z", true);
             	}
             	return __adShows();
-            #end
-		
-		}
-
-        return false;
-    }
-	
-	/////////////////////////////////////////////////////////////////////////////
-	
-	public static function getVideoAdInfo(info:Int):Bool{
-        if (info == 0)
-        {
-			#if ios
-           	 return __videoadLoaded();
-            #end
-			
-			#if android
-            	if (__videoadLoaded == null)
-            	{
-                	__videoadLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadIsLoaded", "()Z", true);
-            	}
-            	return __videoadLoaded();
-            #end			
-	
-        }
-        else if (info == 1)
-        {
-			#if ios
-           		return __videoadFailedToLoad();
-            #end
-			
-			#if android
-            	if (__videoadFailedToLoad == null)
-            	{
-                	__videoadFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadFailedToLoad", "()Z", true);
-            	}
-            	return __videoadFailedToLoad();
-            #end
-				
-        }
-		else if (info == 2)
-        {
-			#if ios
-           		return __videoadClosed();
-            #end
-			
-			#if android
-            	if (__videoadClosed == null)
-            	{
-                	__videoadClosed = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadClosed", "()Z", true);
-            	}
-            	return __videoadClosed();
-            #end
-		}
-        else if (info == 3)
-        {
-			#if ios
-           		return __videoadClicked();
-            #end
-			
-			#if android
-            	if (__videoadClicked == null)
-            	{
-                	__videoadClicked = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadClicked", "()Z", true);
-            	}
-            	return __videoadClicked();
-            #end
-		}
-		else
-		{
-			#if ios
-           		return __videoadShows();
-            #end
-			
-			#if android
-            	if (__videoadShows == null)
-            	{
-                	__videoadShows = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadShows", "()Z", true);
-            	}
-            	return __videoadShows();
             #end
 		
 		}
