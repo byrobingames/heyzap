@@ -49,6 +49,41 @@ static value heyzap_presentmediation_debug(){
 }
 DEFINE_PRIM(heyzap_presentmediation_debug,0);
 
+static value heyzap_show_banner(){
+    showBanner();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_show_banner,0);
+
+static value heyzap_hide_banner(){
+    hideBanner();
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_hide_banner,0);
+
+static value heyzap_banner_move(value gravity_mode){
+    setBannerPosition(val_string(gravity_mode));
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_banner_move,1);
+
+//callbacks banner
+static value heyzap_banner_loaded()
+{
+    if (heyzap::bannerLoaded())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_banner_loaded, 0);
+
+static value heyzap_banner_failed()
+{
+    if (heyzap::bannerFailToLoaded())
+        return val_true;
+    return val_false;
+}
+DEFINE_PRIM(heyzap_banner_failed, 0);
+
 //callbacks interstitial
 static value heyzap_ad_loaded()
 {

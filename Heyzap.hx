@@ -7,6 +7,7 @@ import com.stencyl.behavior.Script;
 class Heyzap {
 
 	private static var initialized:Bool=false;
+	private static var gravityMode:String;
 
 	////////////////////////////////////////////////////////////////////////////
 	
@@ -16,7 +17,12 @@ class Heyzap {
 	private static var __fetchRewardedVideo:Void->Void = function(){};
 	private static var __showRewardedVideo:Void->Void = function(){};
 	private static var __presentMediationDebug:Void->Void = function(){};
+	private static var __showBanner:Void->Void = function(){};
+	private static var __hideBanner:Void->Void = function(){};
+	private static var __setBannerPosition:String->Void = function(gravityMode:String){};
 	
+	private static var __bannerLoaded:Dynamic;
+	private static var __bannerFailedToLoad:Dynamic;
 	private static var __adLoaded:Dynamic;
 	private static var __adFailedToLoad:Dynamic;
 	private static var __adClosed:Dynamic;
@@ -62,6 +68,35 @@ class Heyzap {
 		__presentMediationDebug();
 	}
 	
+	public static function bannerAd(type:Int) 
+	{	
+		if (type == 0)
+		{
+			__showBanner();
+		}
+		else if (type == 1)
+		{
+			__hideBanner();
+		}	
+	}
+	
+	public static function setBannerPosition(position:Int) {
+	
+		if(position == 1)
+		{
+			gravityMode = "TOP";
+		}else
+		{
+			gravityMode = "BOTTOM";
+		}
+		
+		try{
+			__setBannerPosition(gravityMode);
+		}catch(e:Dynamic){
+			trace("setBannerPosition Exception: "+e);
+		}
+	}
+	
 	
 	public static function init(heyzapId:String){
 	
@@ -76,6 +111,11 @@ class Heyzap {
 			__fetchRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_fetch",0);
 			__showRewardedVideo = cpp.Lib.load("heyzap","heyzap_rewardedvideo_show",0);
 			__presentMediationDebug = cpp.Lib.load("heyzap","heyzap_presentmediation_debug",0);
+			__showBanner = cpp.Lib.load("heyzap","heyzap_show_banner",0);
+			__hideBanner = cpp.Lib.load("heyzap","heyzap_hide_banner",0);
+			__setBannerPosition = cpp.Lib.load("heyzap","heyzap_banner_move",1);
+			__bannerLoaded = cpp.Lib.load("heyzap","heyzap_banner_loaded",0);
+			__bannerFailedToLoad = cpp.Lib.load("heyzap","heyzap_banner_failed",0);
 			__adLoaded = cpp.Lib.load("heyzap","heyzap_ad_loaded",0);
 			__adFailedToLoad = cpp.Lib.load("heyzap","heyzap_ad_failed",0);
 			__adClosed = cpp.Lib.load("heyzap","heyzap_ad_closed",0);
@@ -106,6 +146,9 @@ class Heyzap {
 			__fetchRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchRewardedVideo", "()V");
 			__showRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showRewardedVideo", "()V");
 			__presentMediationDebug = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "presentMediationDebug", "()V");
+			__showBanner = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showBanner", "()V");
+			__hideBanner = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "hideBanner", "()V");
+			__setBannerPosition = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "setBannerPosition", "(Ljava/lang/String;)V");
 
 			__init(heyzapId);
 		}catch(e:Dynamic){
@@ -115,6 +158,40 @@ class Heyzap {
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////
+	
+	public static function getBannerInfo(info:Int):Bool{
+		if (info == 0)
+        {
+			#if ios
+           	 return __bannerLoaded();
+            #end
+			
+			#if android
+            	if (__bannerLoaded == null)
+            	{
+                	__bannerLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "bannerIsLoaded", "()Z", true);
+            	}
+            	return __bannerLoaded();
+            #end			
+	
+        }
+        else if (info == 1)
+        {
+			#if ios
+           		return __bannerFailedToLoad();
+            #end
+			
+			#if android
+            	if (__bannerFailedToLoad == null)
+            	{
+                	__bannerFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "bannerHasFailedToLoad", "()Z", true);
+            	}
+            	return __bannerFailedToLoad();
+            #end
+				
+        }
+		 return false;
+	}
 	
 	public static function getAdInfo(info:Int):Bool{
         if (info == 0)

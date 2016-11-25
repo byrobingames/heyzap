@@ -6,17 +6,18 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 ### Important!!
 
-To get it work on IOS you have to Download, Install and Enable “<a href="http://byrobin.nl/store/product/byrobin-extension-manager-stencylopenfl/">byRobin Extension Manager</a>”
+To get it work on IOS you have to Download, Install and Enable “<a href="http://byrobin.nl/store/product/byrobin-extension-manager-stencylopenfl/">byRobin Extension Manager</a> get latest version.
 
 ## Main Features
 
   * Interstitial/Video Support.
   * Rewarded Video Support.
+  * Banner Support 
   * Enable the extension to support the SDK's for that Network: Facebook ads,AppLovin, Unityads, Vungle,   
 
 Supported Networks byRobin | IOS SDK version | Android SDK version | Notes
 --- | --- | --- | ---
-**AdMob IOS** | 7.10.0 | -- |  **DO NOT Enable Admob in Stencyl Mobile settings**
+**AdMob** | 7.10.0 | 9.4 |  **DO NOT Enable Admob in Stencyl Mobile settings**
 **AppLovin** | See extension  | See extension | Add your SDKKEY in include file (Enable Extension Version 0.0.3)
 [**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See extension | See extension | Enable Facebook Ads extension version 1.5 in Stencyl
 [**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | 10.2.0  | 10.2.0 | Enable Heyzap extension in Stencyl
@@ -26,7 +27,6 @@ Supported Networks byRobin | IOS SDK version | Android SDK version | Notes
 
 Unsupported Networks byRobin| Notes
 --- | ---
-**AdMob Android** | Fyber SDK not working with Stencyl |
 **Chartboost** | Chartboost extension need a update or on request.
 **AdColony** | AdColony extension need a update or on request.
 InMobi | on request.

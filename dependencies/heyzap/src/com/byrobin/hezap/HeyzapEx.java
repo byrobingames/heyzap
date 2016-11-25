@@ -10,6 +10,10 @@ package com.byrobin.heyzap;
 import com.heyzap.sdk.ads.HeyzapAds;
 import com.heyzap.sdk.ads.IncentivizedAd;
 import com.heyzap.sdk.ads.InterstitialAd;
+import com.heyzap.sdk.ads.BannerAdView;
+import com.heyzap.sdk.ads.HeyzapAds.BannerListener;
+import com.heyzap.sdk.ads.HeyzapAds.BannerError;
+
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -21,8 +25,14 @@ import android.view.View;
 import android.widget.Toast;
 import android.util.Log;
 
-import org.haxe.extension.Extension;
+import android.view.Gravity;
+import android.view.animation.Animation;
+import android.view.animation.AlphaAnimation;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
+import android.view.ViewGroup;
 
+import org.haxe.extension.Extension;
 
 public class HeyzapEx extends Extension {
 
@@ -46,6 +56,12 @@ public class HeyzapEx extends Extension {
     
     private static String _tag=null;
 
+    private static BannerAdView banner;
+    private static LinearLayout layout;
+    private static boolean bannerInitialize = false;
+    private static boolean bannerLoaded = false;
+    private static boolean bannerFailedToLoad = false;
+    private static int gravity=Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,6 +81,88 @@ public class HeyzapEx extends Extension {
 			}
 		});	
 	}
+    
+    static public void showBanner() {
+        Log.d("HeyzapEx","showbanner Begin");
+        if(HeyzapId=="") return;
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+                if(bannerInitialize)
+                {
+                    layout.setVisibility(View.VISIBLE);
+                    
+                    Animation animation1 = new AlphaAnimation(0.0f, 1.0f);
+                    animation1.setDuration(1000);
+                    layout.startAnimation(animation1);
+                    
+                }else{
+                    initBanner();
+                }
+            }
+        });
+        Log.d("HeyzapEx","showbanner End");
+    }
+    
+    static public void hideBanner() {
+        Log.d("HeyzapEx","Hide banner Begin");
+        if(HeyzapId=="") return;
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            public void run()
+            {
+                if(bannerInitialize)
+                {
+                    Animation animation1 = new AlphaAnimation(1.0f, 0.0f);
+                    animation1.setDuration(1000);
+                    layout.startAnimation(animation1);
+                    
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            layout.setVisibility(View.GONE);
+                        }
+                    }, 1000);
+                    
+                }else{
+                    initBanner();
+                }
+            }
+        });
+        Log.d("HeyzapEx","Hide Banner End");
+    }
+    
+    static public void setBannerPosition(final String gravityMode)
+    {
+        mainActivity.runOnUiThread(new Runnable()
+                                   {
+            public void run()
+            {
+                
+                if(gravityMode.equals("TOP"))
+                {
+                    if(banner==null)
+                    {
+                        gravity=Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                    }else
+                    {
+                        gravity=Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                        layout.setGravity(gravity);
+                    }
+                }else
+                {
+                    if(banner==null)
+                    {
+                        gravity=Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+                    }else
+                    {
+                        gravity=Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+                        layout.setGravity(gravity);
+                    }
+                }
+            }
+        });
+    }
 
     static public void fetchInterstitial() {
         Log.d("HeyzapEx","Fetch Interstitial Begin");
@@ -143,9 +241,72 @@ public class HeyzapEx extends Extension {
         Log.d("HeyzapEx","Show presentMediationDebug End");
         
     }
+    
+    static public void initBanner(){
+        if(bannerInitialize) return;
+        if(banner==null){ // if this is the first time we call this function
+            layout = new LinearLayout(mainActivity);
+            layout.setGravity(gravity);
+        } else {
+            ViewGroup parent = (ViewGroup) layout.getParent();
+            parent.removeView(layout);
+            layout.removeView(banner);
+            banner.destroy();
+        }
+        
+        banner = new BannerAdView(mainActivity);
+        banner.setBannerListener(new BannerListener() {
+            @Override
+            public void onAdClicked(BannerAdView b) {
+                // The ad has been clicked by the user.
+            }
+            @Override
+            public void onAdLoaded(BannerAdView b) {
+                // The ad has been loaded.
+                bannerInitialize = true;
+                bannerLoaded = true;
+                bannerFailedToLoad = false;
+            }
+            @Override
+            public void onAdError(BannerAdView b, BannerError bannerError) {
+                // There was an error loading the ad.
+                bannerInitialize = false;
+                bannerLoaded = false;
+                bannerFailedToLoad = true;
+            }
+        });
+        
+        mainActivity.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        layout.addView(banner);
+        layout.bringToFront();
+        
+        banner.load();
+    }
+
 
     
 	//////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //callback banner
+    static public boolean bannerIsLoaded()
+    {
+        if (bannerLoaded)
+        {
+            bannerLoaded = false;
+            return true;
+        }
+        return false;
+    }
+    
+    static public boolean bannerHasFailedToLoad()
+    {
+        if (bannerFailedToLoad)
+        {
+            bannerFailedToLoad = false;
+            return true;
+        }
+        return false;
+    }
     
 	//callback insterstitial
     static public boolean adIsLoaded()

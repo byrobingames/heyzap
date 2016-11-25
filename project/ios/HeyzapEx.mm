@@ -11,9 +11,10 @@
 
 using namespace heyzap;
 
-@interface HeyzapController : NSObject <HZAdsDelegate, HZIncentivizedAdDelegate>
+@interface HeyzapController : NSObject <HZAdsDelegate, HZIncentivizedAdDelegate, HZBannerAdDelegate>
 {
-    UIViewController *heyzapViewController;
+    UIViewController *root;
+    UIView *bannerView;
     NSString *_tag;
     BOOL adLoaded;
     BOOL adFailToLoad;
@@ -27,6 +28,10 @@ using namespace heyzap;
     BOOL rewardedadShows;
     BOOL completeRewardedVideo;
     BOOL failToCompleteRewardedVideo;
+    
+    BOOL bannerInitialize;
+    BOOL bannerLoaded;
+    BOOL bannerFailToLoad;
 }
 
 - (id)initWithID:(NSString*)ID;
@@ -35,6 +40,9 @@ using namespace heyzap;
 - (void)fetchRewardedVideoAd;
 - (void)showRewardedVideoAd;
 - (void)showMediationDebugController;
+- (void)showBannerAd;
+- (void)hideBannerAd;
+-(void)setPosition:(NSString*)position;
 
 @property (nonatomic, assign) BOOL adLoaded;
 @property (nonatomic, assign) BOOL adFailToLoad;
@@ -48,6 +56,9 @@ using namespace heyzap;
 @property (nonatomic, assign) BOOL rewardedadShows;
 @property (nonatomic, assign) BOOL completeRewardedVideo;
 @property (nonatomic, assign) BOOL failToCompleteRewardedVideo;
+@property (nonatomic, assign) BOOL bannerInitialize;
+@property (nonatomic, assign) BOOL bannerLoaded;
+@property (nonatomic, assign) BOOL bannerFailToLoad;
 @end
 
 @implementation HeyzapController
@@ -64,6 +75,9 @@ using namespace heyzap;
 @synthesize rewardedadShows;
 @synthesize completeRewardedVideo;
 @synthesize failToCompleteRewardedVideo;
+@synthesize bannerInitialize;
+@synthesize bannerLoaded;
+@synthesize bannerFailToLoad;
 
 - (id)initWithID:(NSString*)ID
 {
@@ -77,6 +91,8 @@ using namespace heyzap;
     
     //Incentivized Ads Delegate
     [HZIncentivizedAd setDelegate:self];
+    
+    bannerInitialize = NO;
 
     return self;
 }
@@ -108,6 +124,70 @@ using namespace heyzap;
     
      [HZIncentivizedAd show];
 }
+
+- (void)showBannerAd
+{
+    if(bannerInitialize){
+        [[HZBannerAdController sharedInstance].bannerView setHidden: NO];
+    }else{
+        root = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        
+        HZBannerAdOptions *bannerOpts = [[HZBannerAdOptions alloc] init];
+        bannerOpts.presentingViewController = root;
+        if( [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ||
+           [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight )
+        {
+            bannerOpts.admobBannerSize = HZAdMobBannerSizeFlexibleWidthLandscape;
+        }
+        
+        //[[HZBannerAdController sharedInstance] placeBannerAtPosition:HZBannerPositionBottom options:bannerOpts success:^(UIView *banner) {
+        [[HZBannerAdController sharedInstance] requestBannerWithOptions:bannerOpts success:^(UIView *banner) {
+            bannerView = banner;
+            [root.view addSubview:bannerView];
+            [self setPosition:@"BOTTOM"];
+            NSLog(@"Showed banner");
+            bannerInitialize = YES;
+            bannerLoaded = YES;
+            bannerFailToLoad = NO;
+            [[HZBannerAdController sharedInstance].bannerView setHidden: NO];
+        } failure:^(NSError *error) {
+            NSLog(@"Error showing banner: %@",error);
+            bannerInitialize = NO;
+            bannerLoaded = NO;
+            bannerFailToLoad = YES;
+        }];
+    }
+ 
+}
+
+- (void)hideBannerAd
+{
+    [[HZBannerAdController sharedInstance].bannerView setHidden: YES];
+}
+
+-(void)setPosition:(NSString*)position
+{
+    if(bannerView != NULL){
+    
+        BOOL bottom=[position isEqualToString:@"BOTTOM"];
+    
+        if (bottom) // Reposition the adView to the bottom of the screen
+        {
+            CGRect frame = bannerView.frame;
+            frame.origin.y = root.view.bounds.size.height - frame.size.height;
+            frame.origin.x = 0;
+            bannerView.frame=frame;
+        
+        }else // Reposition the adView to the top of the screen
+        {
+            CGRect frame = bannerView.frame;
+            frame.origin.y = 0;
+            frame.origin.x = 0;
+            bannerView.frame=frame;
+        }
+    }
+}
+
 
 - (void)showMediationDebugController
 {
@@ -216,6 +296,32 @@ using namespace heyzap;
     failToCompleteRewardedVideo = YES;
 }
 
+//bannerdelegate
+
+- (void)bannerDidReceiveAd:(HZBannerAdController *)banner
+{
+    NSLog(@"HeyzapEx Banner received ad.");
+}
+- (void)bannerDidFailToReceiveAd:(HZBannerAdController *)banner error:(NSError *)error
+{
+     NSLog(@"HeyzapEx Banner Fail to receive ad.");
+}
+- (void)bannerWasClicked:(HZBannerAdController *)banner
+{
+     NSLog(@"HeyzapEx Banner was clicked.");
+}
+- (void)bannerWillPresentModalView:(HZBannerAdController *)banner
+{
+     NSLog(@"HeyzapEx Banner will present.");
+}
+- (void)bannerDidDismissModalView:(HZBannerAdController *)banner
+{
+     NSLog(@"HeyzapEx Banner did dismiss.");
+}
+- (void)bannerWillLeaveApplication:(HZBannerAdController *)banner
+{
+     NSLog(@"HeyzapEx Banner will leave app.");
+}
 
 
 @end
@@ -270,12 +376,66 @@ namespace heyzap {
         }
     }
     
+    void showBanner()
+    {
+        if(heyzapController!=NULL)
+        {
+            [heyzapController showBannerAd];
+        }
+    }
+    
+    void hideBanner()
+    {
+        if(heyzapController!=NULL)
+        {
+            [heyzapController hideBannerAd];
+        }
+    }
+    
+    void setBannerPosition(const char *gravityMode)
+    {
+        if(heyzapController != NULL)
+        {
+            NSString *GMODE = [NSString stringWithUTF8String:gravityMode];
+            
+            [heyzapController setPosition:GMODE];
+        }
+    }
+    
     void presentMediationDebug()
     {
         if(heyzapController!=NULL)
         {
             [heyzapController showMediationDebugController];
         }
+    }
+    
+//callbacks banner
+    
+    bool bannerLoaded()
+    {
+        if(heyzapController != NULL)
+        {
+            if (heyzapController.bannerLoaded)
+            {
+                heyzapController.bannerLoaded = NO;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool bannerFailToLoaded()
+    {
+        if(heyzapController != NULL)
+        {
+            if (heyzapController.bannerFailToLoad)
+            {
+                heyzapController.bannerFailToLoad = NO;
+                return true;
+            }
+        }
+        return false;
     }
     
 //Callbacks Interstitial

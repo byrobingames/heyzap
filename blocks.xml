@@ -29,8 +29,41 @@
         </fields>
     </block>
     
+    <block tag="bannerAdHeyzap" spec="Heyzap: %0 Banner Ad [c:heyzap]" code="Heyzap.bannerAd(~);" type="action" color="charcoal" returns="void">
+        <fields>
+            <dropdown order="0">
+                <choices>
+                    <c text="Show" code="0"></c>
+                    <c text="Hide" code="1"></c>
+                </choices>
+            </dropdown>
+        </fields>
+    </block>
+    
+    <block tag="heyzapmoveBanner" spec="Heyzap: Move banner to %0 [c:heyzap]" code="Heyzap.setBannerPosition(~);" type="action" color="charcoal" returns="void">
+        <fields>
+            <dropdown order="0">
+                <choices>
+                    <c text="Bottom" code="0"></c>
+                    <c text="Top" code="1"></c>
+                </choices>
+            </dropdown>
+        </fields>
+    </block>
+    
     <block tag="testSDKHezap" spec="Heyzap: Test if SDK is present (For Debug only) [c:heyzap]" code="Heyzap.presentMediationDebug();" type="action" color="charcoal" returns="void">
         <fields>
+        </fields>
+    </block>
+    
+    <block tag="getBannerInfoHeyzap" spec="Heyzap: Banner Ad %0 [c:heyzap]" code="Heyzap.getBannerInfo(~)" type="normal" color="charcoal" returns="boolean">
+        <fields>
+            <dropdown order="0">
+                <choices>
+                    <c text="did successfully load" code="0"></c>
+                    <c text="did fail to load" code="1"></c>
+                </choices>
+            </dropdown>
         </fields>
     </block>
        

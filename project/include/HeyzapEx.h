@@ -13,6 +13,11 @@ namespace heyzap {
     void fetchRewardedVideo();
     void showRewardedVideo();
     void presentMediationDebug();
+    void showBanner();
+    void hideBanner();
+    void setBannerPosition(const char *gravityMode);
+    bool bannerLoaded();
+    bool bannerFailToLoaded();
     bool adLoaded();
     bool adFailToLoad();
     bool adClosed();
