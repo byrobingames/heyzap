@@ -23,6 +23,11 @@ namespace heyzap {
     bool adClosed();
     bool adIsClicked();
     bool adShows();
+    bool videoadLoaded();
+    bool videoadFailToLoad();
+    bool videoadClosed();
+    bool videoadIsClicked();
+    bool videoadShows();
     bool rewardedadLoaded();
     bool rewardedadFailToLoad();
     bool rewardedadClosed();
