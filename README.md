@@ -6,7 +6,9 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 ### Important!!
 
-To get it work on IOS you have to Download, Install and Enable “<a href="http://byrobin.nl/store/product/byrobin-extension-manager-stencylopenfl/">byRobin Extension Manager</a> get latest version.
+This Extension Required the Toolset Extension Manager http://byrobin.nl/store/product/byrobintoolsetextension/
+
+
 
 ## Main Features
 
@@ -20,7 +22,7 @@ Supported Networks byRobin | IOS SDK version | Android SDK version | Notes
 **AdMob** | 7.10.0 | 9.4 |  **Enable Admob in Stencyl Mobile settings**
 **AppLovin** | See extension  | See extension | Add your SDKKEY in include file (Enable Extension Version 0.0.4)
 [**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See extension | See extension | Enable Facebook Ads extension version 1.6 in Stencyl
-[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | 9.7.1  | 9.7.1 | Enable Heyzap extension in Stencyl
+[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | 9.10.1  | 9.10.1 | Enable Heyzap extension in Stencyl
 **Leadbolt** | See extension | See extension | Enable Leadbolt extension version 1.4 in Stencyl
 **UnityAds** | See extension | See extension | Enable UnityAds extension version 0.0.9 in Stencyl
 **Vungle** | See extension | See extension | Enable Vungle extension version 0.0.4 in Stencyl
