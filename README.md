@@ -8,7 +8,7 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 This Extension Required the Toolset Extension Manager http://byrobin.nl/store/product/byrobintoolsetextension/
 
-
+[![toolsetheyzap](http://byrobin.nl/store/wp-content/uploads/sites/4/2016/03/toolsetheyzap.png)]
 
 ## Main Features
 
