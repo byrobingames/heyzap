@@ -11,6 +11,8 @@ import openfl.Lib;
 import openfl.events.FocusEvent;
 import com.stencyl.behavior.Script;
 
+import scripts.ByRobinAssets;
+
 class Heyzap {
 
 	private static var initialized:Bool=false;
@@ -124,7 +126,9 @@ class Heyzap {
 	}
 	
 	
-	public static function init(heyzapId:String){
+	public static function init(){
+		
+		var heyzapId:String = ByRobinAssets.HZPublisherID;
 	
 		#if ios
 		if(initialized) return;
