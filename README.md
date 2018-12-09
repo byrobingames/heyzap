@@ -6,9 +6,9 @@ Stencyl extension for "Heyzap" (http://www.heyzap.com) on iOS and Android. This 
 
 ### Important!!
 
-This Extension Required the Toolset Extension Manager http://byrobin.nl/store/product/byrobintoolsetextension/
+This Extension Required the Toolset Extension Manager [https://byrobingames.github.io](https://byrobingames.github.io)
 
-[![toolsetheyzap](http://byrobin.nl/store/wp-content/uploads/sites/4/2016/03/toolsetheyzap.png)]
+[![toolsetheyzap](https://byrobingames.github.io/img/heyzap/toolsetheyzap.png)]
 
 ## Main Features
 
@@ -38,20 +38,42 @@ Domob | on request.
 
 ## How to Install
 
-Go to: http://byrobin.nl/store/product/heyzap-advertising-for-ios-android-stencylopenfl
+To install this Engine Extension, go to the toolset (byRobin Extension Mananger) in the Extension menu of your game inside Stencyl.<br/>
+Select the Engine Extension from the left menu and click on "Download"
 
-Add the extension to the cart en proceed with checkout. After you successfully placed the order, you will get an e-mail with the download link or go to “My Account” section where you can also find the download link.
-
-Or
-
-Use the "Download Zip" from this page.
-
-Free Extension is named “master.zip” when you download.
-
-Install the zip file: Go to : http://community.stencyl.com/index.php/topic,30432.0.html
+If you not have byRobin Extension Mananger installed, install this first.
+Go to: [https://byrobingames.github.io](https://byrobingames.github.io)
 
 ## Documentation and Block Examples
 [Heyzap WIKI](https://github.com/byrobingames/heyzap/wiki)
+
+## Version History
+
+- 1.8 (2015-11-08) release
+- 1.9 (2015-11-20) major update (added blocks and SDK's see github for all updates
+- 2.1 (2016-01-28) update Heyzap SDK for both iOS and Android (9.3.7)
+- 2.2 (2016-03-28) update Heyzap SDK for both iOS and Android (9.4.4), remove UnityAds, AppLovin, and Vungle SDK's. There are now own extensions
+- 2.3 (2016-04-15) update Heyzap SDK for both iOS and Android (9.5.5), this has fix the crash when click an a Network in Debug.
+- 2.4 (2016-05-02) Android: set InMobi activity in comments, this will fix the crash on Android.
+- 2.5 (2016-05-11) iOS Fix: Freeze after dismiss ad when using single touch. Now single touch is working
+- 2.6 (2016-09-25)SDK Update for iOS and Android to 9.6.8
+- 2.7 (2016-11-18) Updated to SDK 10.
+- 2.8 (2016-11-25) Added Banner Support and Android Admob support
+- 2.9 (2017-03-19)
+           - SDK 10 not in develop by Heyzap anymore, back to SDK 9.7.1
+           - Android Gradle support for openfl4 update
+           - byRobin extension manager 0.1.2 is needed for iOS.
+- 2.9.1(2017-05-16) Update SDK to iOS: 9.10.1 Android: 9.10.1, Tested for Stencyl 3.5, Required byRobin Toolset Extension Manager
+
+## Submitting a Pull Request
+
+This software is opensource.<br/>
+If you want to contribute you can make a pull request
+
+Repository: [https://github.com/byrobingames/localnotifications](https://github.com/byrobingames/localnotifications)
+
+Need help with a pull request?<br/>
+[https://help.github.com/articles/creating-a-pull-request/](https://help.github.com/articles/creating-a-pull-request/)
 
 ## Donate
 
@@ -63,8 +85,14 @@ https://www.heyzap.com/legal/privacy
 
 ## License
 
-The MIT License (MIT) - LICENSE.md
-
-Copyright © 2014 byRobinGames (http://www.byrobingames.com)
-
 Author: Robin Schaafsma
+
+The MIT License (MIT)
+
+Copyright (c) 2014 byRobinGames [http://www.byrobin.nl](http://www.byrobin.nl)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
