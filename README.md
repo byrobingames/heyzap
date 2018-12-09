@@ -47,6 +47,22 @@ Go to: [https://byrobingames.github.io](https://byrobingames.github.io)
 ## Documentation and Block Examples
 [Heyzap WIKI](https://github.com/byrobingames/heyzap/wiki)
 
+### Error on Compile
+
+If you get this error on compiling: iOS (only)
+
+    [openfl] Undefined symbols for architecture arm64:
+    [openfl]     _OBJC_CLASS_$_HZShowOptions", referenced from:
+    [openfl]        objc-class-ref in libheyzap.a(054f34a9_HeyzapEx.o)
+    [openfl]   "_OBJC_CLASS_$_HZInterstitialAd", referenced from:
+    [openfl]        objc-class-ref in libheyzap.a(054f34a9_HeyzapEx.o)
+    [openfl]    "_OBJC_CLASS_$_HeyzapAds", referenced from:
+    [openfl]      objc-class-ref in libheyzap.a(054f34a9_HeyzapEx.o)
+    [openfl]  ld: symbol(s) not found for architecture arm64
+    [openfl] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+    
+See [https://github.com/byrobingames/heyzap/wiki/4.-Error-on-Compiling](https://github.com/byrobingames/heyzap/wiki/4.-Error-on-Compiling)
+
 ## Version History
 
 - 1.8 (2015-11-08) release
