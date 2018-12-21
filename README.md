@@ -75,10 +75,10 @@ See [https://github.com/byrobingames/heyzap/wiki/4.-Error-on-Compiling](https://
 - 2.6 (2016-09-25)SDK Update for iOS and Android to 9.6.8
 - 2.7 (2016-11-18) Updated to SDK 10.
 - 2.8 (2016-11-25) Added Banner Support and Android Admob support
-- 2.9 (2017-03-19)
-           - SDK 10 not in develop by Heyzap anymore, back to SDK 9.7.1
-           - Android Gradle support for openfl4 update
-           - byRobin extension manager 0.1.2 is needed for iOS.
+- 2.9 (2017-03-19)<br />
+           - SDK 10 not in develop by Heyzap anymore, back to SDK 9.7.1<br />
+           - Android Gradle support for openfl4 update<br />
+           - byRobin extension manager 0.1.2 is needed for iOS.<br />
 - 2.9.1(2017-05-16) Update SDK to iOS: 9.10.1 Android: 9.10.1, Tested for Stencyl 3.5, Required byRobin Toolset Extension Manager
 
 ## Submitting a Pull Request
