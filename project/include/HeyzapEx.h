@@ -35,6 +35,8 @@ namespace heyzap {
     bool rewardedadShows();
     bool completeRewardedVideo();
     bool failToCompleteRewardedVideo();
+    void setHeyzapConsent(bool isGranted);
+    bool getHeyzapConsent();
     
 }
 

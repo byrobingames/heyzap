@@ -8,6 +8,14 @@ import neko.Lib;
 import openfl.Lib;
 #end
 
+#if android
+#if openfl_legacy
+import openfl.utils.JNI;
+#else
+import lime.system.JNI;
+#end
+#end
+
 import openfl.events.FocusEvent;
 import com.stencyl.behavior.Script;
 
@@ -31,6 +39,8 @@ class Heyzap {
 	private static var __showBanner:Void->Void = function(){};
 	private static var __hideBanner:Void->Void = function(){};
 	private static var __setBannerPosition:String->Void = function(gravityMode:String){};
+	private static var __setConsent:Bool->Void = function(isGranted:Bool){};
+	private static var __getConsent:Void->Bool = function(){return false;};
 	
 	private static var __bannerLoaded:Dynamic;
 	private static var __bannerFailedToLoad:Dynamic;
@@ -124,8 +134,20 @@ class Heyzap {
 			trace("setBannerPosition Exception: "+e);
 		}
 	}
-	
-	
+
+	public static function setConsent(isGranted:Bool) {
+		try {
+			__setConsent(isGranted);
+		} catch(e:Dynamic) {
+			trace("SetConsent Exception: "+e);
+		}
+	}
+
+	public static function getConsent():Bool {
+
+		return __getConsent();
+	}
+		
 	public static function init(){
 		
 		var heyzapId:String = ByRobinAssets.HZPublisherID;
@@ -165,6 +187,8 @@ class Heyzap {
 			__rewardedadShows = cpp.Lib.load("heyzap","heyzap_rewardedad_shows",0);
 			__rewardedVideoComplete = cpp.Lib.load("heyzap","heyzap_rewardedvideo_complete",0);
 			__rewardedVideoFailToComplete = cpp.Lib.load("heyzap","heyzap_rewardedvideo_failtocomplete",0);
+			__setConsent = cpp.Lib.load("heyzap","heyzap_setconsent",1);
+			__getConsent = cpp.Lib.load("heyzap","heyzap_getconsent",0);
 
 			__init(heyzapId);
 		}catch(e:Dynamic){
@@ -177,17 +201,19 @@ class Heyzap {
 		initialized = true;
 		try{
 			// JNI METHOD LINKING
-			__init = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "init", "(Ljava/lang/String;)V");
-			__fetchInterstitial = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchInterstitial", "()V");
-			__showInterstitial = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showInterstitial", "()V");
-			__fetchVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchVideo", "()V");
-			__showVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showVideo", "()V");
-			__fetchRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchRewardedVideo", "()V");
-			__showRewardedVideo = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showRewardedVideo", "()V");
-			__presentMediationDebug = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "presentMediationDebug", "()V");
-			__showBanner = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showBanner", "()V");
-			__hideBanner = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "hideBanner", "()V");
-			__setBannerPosition = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "setBannerPosition", "(Ljava/lang/String;)V");
+			__init = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "init", "(Ljava/lang/String;)V");
+			__fetchInterstitial = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchInterstitial", "()V");
+			__showInterstitial = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showInterstitial", "()V");
+			__fetchVideo = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchVideo", "()V");
+			__showVideo = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showVideo", "()V");
+			__fetchRewardedVideo = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "fetchRewardedVideo", "()V");
+			__showRewardedVideo = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showRewardedVideo", "()V");
+			__presentMediationDebug = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "presentMediationDebug", "()V");
+			__showBanner = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "showBanner", "()V");
+			__hideBanner = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "hideBanner", "()V");
+			__setBannerPosition = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "setBannerPosition", "(Ljava/lang/String;)V");
+			__setConsent = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "setUsersConsent", "(Z)V");
+			__getConsent = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "getUsersConsent", "()Z");
 
 			__init(heyzapId);
 		}catch(e:Dynamic){
@@ -208,7 +234,7 @@ class Heyzap {
 			#if android
             	if (__bannerLoaded == null)
             	{
-                	__bannerLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "bannerIsLoaded", "()Z", true);
+                	__bannerLoaded = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "bannerIsLoaded", "()Z", true);
             	}
             	return __bannerLoaded();
             #end			
@@ -223,7 +249,7 @@ class Heyzap {
 			#if android
             	if (__bannerFailedToLoad == null)
             	{
-                	__bannerFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "bannerHasFailedToLoad", "()Z", true);
+                	__bannerFailedToLoad = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "bannerHasFailedToLoad", "()Z", true);
             	}
             	return __bannerFailedToLoad();
             #end
@@ -242,7 +268,7 @@ class Heyzap {
 			#if android
             	if (__adLoaded == null)
             	{
-                	__adLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adIsLoaded", "()Z", true);
+                	__adLoaded = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adIsLoaded", "()Z", true);
             	}
             	return __adLoaded();
             #end			
@@ -257,7 +283,7 @@ class Heyzap {
 			#if android
             	if (__adFailedToLoad == null)
             	{
-                	__adFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adFailedToLoad", "()Z", true);
+                	__adFailedToLoad = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adFailedToLoad", "()Z", true);
             	}
             	return __adFailedToLoad();
             #end
@@ -272,7 +298,7 @@ class Heyzap {
 			#if android
             	if (__adClosed == null)
             	{
-                	__adClosed = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adClosed", "()Z", true);
+                	__adClosed = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adClosed", "()Z", true);
             	}
             	return __adClosed();
             #end
@@ -286,7 +312,7 @@ class Heyzap {
 			#if android
             	if (__adClicked == null)
             	{
-                	__adClicked = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adClicked", "()Z", true);
+                	__adClicked = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adClicked", "()Z", true);
             	}
             	return __adClicked();
             #end
@@ -300,7 +326,7 @@ class Heyzap {
 			#if android
             	if (__adShows == null)
             	{
-                	__adShows = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adShows", "()Z", true);
+                	__adShows = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "adShows", "()Z", true);
             	}
             	return __adShows();
             #end
@@ -322,7 +348,7 @@ class Heyzap {
 			#if android
             	if (__videoadLoaded == null)
             	{
-                	__videoadLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadIsLoaded", "()Z", true);
+                	__videoadLoaded = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadIsLoaded", "()Z", true);
             	}
             	return __videoadLoaded();
             #end			
@@ -337,7 +363,7 @@ class Heyzap {
 			#if android
             	if (__videoadFailedToLoad == null)
             	{
-                	__videoadFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadFailedToLoad", "()Z", true);
+                	__videoadFailedToLoad = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadFailedToLoad", "()Z", true);
             	}
             	return __videoadFailedToLoad();
             #end
@@ -352,7 +378,7 @@ class Heyzap {
 			#if android
             	if (__videoadClosed == null)
             	{
-                	__videoadClosed = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadClosed", "()Z", true);
+                	__videoadClosed = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadClosed", "()Z", true);
             	}
             	return __videoadClosed();
             #end
@@ -366,7 +392,7 @@ class Heyzap {
 			#if android
             	if (__videoadClicked == null)
             	{
-                	__videoadClicked = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadClicked", "()Z", true);
+                	__videoadClicked = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadClicked", "()Z", true);
             	}
             	return __videoadClicked();
             #end
@@ -380,7 +406,7 @@ class Heyzap {
 			#if android
             	if (__videoadShows == null)
             	{
-                	__videoadShows = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadShows", "()Z", true);
+                	__videoadShows = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "videoadShows", "()Z", true);
             	}
             	return __videoadShows();
             #end
@@ -403,7 +429,7 @@ class Heyzap {
 			#if android
             	if (__rewardedadLoaded == null)
             	{
-                	__rewardedadLoaded = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadIsLoaded", "()Z", true);
+                	__rewardedadLoaded = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadIsLoaded", "()Z", true);
             	}
             	return __rewardedadLoaded();
             #end			
@@ -418,7 +444,7 @@ class Heyzap {
 			#if android
             	if (__rewardedadFailedToLoad == null)
             	{
-                	__rewardedadFailedToLoad = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadFailedToLoad", "()Z", true);
+                	__rewardedadFailedToLoad = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadFailedToLoad", "()Z", true);
             	}
             	return __rewardedadFailedToLoad();
             #end
@@ -433,7 +459,7 @@ class Heyzap {
 			#if android
             	if (__rewardedadClosed == null)
             	{
-                	__rewardedadClosed = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadClosed", "()Z", true);
+                	__rewardedadClosed = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadClosed", "()Z", true);
             	}
             	return __rewardedadClosed();
             #end
@@ -447,7 +473,7 @@ class Heyzap {
 			#if android
             	if (__rewardedadClicked == null)
             	{
-                	__rewardedadClicked = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadClicked", "()Z", true);
+                	__rewardedadClicked = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadClicked", "()Z", true);
             	}
             	return __rewardedadClicked();
             #end
@@ -461,7 +487,7 @@ class Heyzap {
 			#if android
             	if (__rewardedadShows == null)
             	{
-                	__rewardedadShows = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadShows", "()Z", true);
+                	__rewardedadShows = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedadShows", "()Z", true);
             	}
             	return __rewardedadShows();
             #end
@@ -476,7 +502,7 @@ class Heyzap {
 			#if android
             	if (__rewardedVideoComplete == null)
             	{
-                	__rewardedVideoComplete = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedVideoComplete", "()Z", true);
+                	__rewardedVideoComplete = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedVideoComplete", "()Z", true);
             	}
             	return __rewardedVideoComplete();
             #end			
@@ -491,7 +517,7 @@ class Heyzap {
 			#if android
             	if (__rewardedVideoFailToComplete == null)
             	{
-                	__rewardedVideoFailToComplete = openfl.utils.JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedVideoFailToComplete", "()Z", true);
+                	__rewardedVideoFailToComplete = JNI.createStaticMethod("com/byrobin/heyzap/HeyzapEx", "rewardedVideoFailToComplete", "()Z", true);
             	}
             	return __rewardedVideoFailToComplete();
             #end

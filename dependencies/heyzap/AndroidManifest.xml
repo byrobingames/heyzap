@@ -1,30 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.byrobin.heyzap" android:versionCode="::APP_BUILD_NUMBER::" android:versionName="::APP_VERSION::" android:installLocation="::ANDROID_INSTALL_LOCATION::">
     
-    <!-- Required by AdMob, AppLovin, Facebook Audience Network, Fyber Marketplace, HyprMX, UnityAds, and Vungle -->
+    <!-- Required by AdColony, AdMob, AppLovin, Chartboost, Facebook Audience Network, Heyzap Ad Network, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
-    <!-- Required by AdMob, AppLovin, Facebook Audience Network, Fyber Marketplace, HyprMX, UnityAds, and Vungle -->
+    <!-- Required by AdColony, AdMob, AppLovin, Chartboost, Facebook Audience Network, Heyzap Ad Network, UnityAds, and Vungle -->
     <uses-permission android:name="android.permission.INTERNET" />
     
-    <!-- Required by AppLovin, HyprMX, and Vungle -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>/>
+    <!-- Required by AdColony, and AppLovin -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
-    <application>
-        
-        <!-- Heyzap Ad Network -->
-        <activity android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
-        <activity android:name="com.heyzap.sdk.ads.HeyzapVideoActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
-        <activity android:name="com.heyzap.sdk.ads.HeyzapProxyActivity" />
-        <activity android:name="com.heyzap.sdk.ads.VASTActivity" android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
-        <activity android:name="com.heyzap.sdk.ads.MediationTestActivity" />
-        <receiver android:name="com.heyzap.sdk.ads.PackageAddedReceiver">
-            <intent-filter>
-                <data android:scheme="package"/>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-            </intent-filter>
-        </receiver>
-        
-    </application>
+        <application android:hardwareAccelerated="true" >
+            
+            <activity
+            android:name="com.heyzap.sdk.ads.HeyzapInterstitialActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
+            <activity
+            android:name="com.heyzap.sdk.ads.HeyzapVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize" />
+            <activity android:name="com.heyzap.sdk.ads.MediationTestActivity" />
+            <activity android:name="com.heyzap.sdk.ads.HeyzapProxyActivity" />
+            
+            <receiver android:name="com.heyzap.sdk.ads.PackageAddedReceiver" >
+                <intent-filter>
+                    <data android:scheme="package" />
+                    
+                    <action android:name="android.intent.action.PACKAGE_ADDED" />
+                </intent-filter>
+            </receiver>
+            
+            <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+            
+            <receiver
+                android:name="com.heyzap.mediation.handler.IntergrationsReciever"
+                android:enabled="true"
+                android:exported="false" >
+                <intent-filter>
+                    <action android:name="com.gameofwhales.action.Response" />
+                </intent-filter>
+            </receiver>
+            
+            <activity
+            android:name="com.fyber.inneractive.sdk.activities.InneractiveInternalBrowserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout" />
+            <activity
+            android:name="com.fyber.inneractive.sdk.activities.InneractiveFullscreenAdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            <activity
+            android:name="com.fyber.inneractive.sdk.activities.InneractiveRichMediaVideoPlayerActivityCore"
+            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            
+        </application>
  
 </manifest>

@@ -15,14 +15,15 @@ This Extension Required the Toolset Extension Manager [https://byrobingames.gith
   * Interstitial/Video Support.
   * Rewarded Video Support.
   * Banner Support 
+  * Set / Get users consent
   * Enable the extension to support the SDK's for that Network: Facebook ads,AppLovin, Unityads, Vungle,Leadbolt   
 
 Supported Networks byRobin | IOS SDK version | Android SDK version | Notes
 --- | --- | --- | ---
-**AdMob** | 7.10.0 | 9.4 |  **Enable Admob in Stencyl Mobile settings**
+**AdMob** | See Stencyl | See Stencyl |  **Enable Admob in Stencyl Mobile settings**
 **AppLovin** | See extension  | See extension | Add your SDKKEY in include file (Enable Extension Version 0.0.4)
 [**Facebook Ads**](http://community.stencyl.com/index.php/topic,41144.0.html) | See extension | See extension | Enable Facebook Ads extension version 1.6 in Stencyl
-[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | 9.10.1  | 9.10.1 | Enable Heyzap extension in Stencyl
+[**Heyzap**](http://community.stencyl.com/index.php/topic,45095.0.html) | 9.54.1  | 9.54.1 | Enable Heyzap extension in Stencyl
 **Leadbolt** | See extension | See extension | Enable Leadbolt extension version 1.4 in Stencyl
 **UnityAds** | See extension | See extension | Enable UnityAds extension version 0.0.9 in Stencyl
 **Vungle** | See extension | See extension | Enable Vungle extension version 0.0.4 in Stencyl
@@ -81,6 +82,7 @@ See [https://github.com/byrobingames/heyzap/wiki/4.-Error-on-Compiling](https://
            - Android Gradle support for openfl4 update<br />
            - byRobin extension manager 0.1.2 is needed for iOS.<br />
 - 2.9.1(2017-05-16) Update SDK to iOS: 9.10.1 Android: 9.10.1, Tested for Stencyl 3.5, Required byRobin Toolset Extension Manager
+- 2.9.2(2019-03-24) Update SDK to: 9.54.1; set and get users consent; Required extension manager 0.2.5 >
 
 ## Submitting a Pull Request
 

@@ -66,6 +66,22 @@
         </fields>
     </block>
     
+    <block tag="setConsentHeyzap" spec="Heyzao set consent to: %0 [c:heyzap]" code="Heyzap.setConsent(~);" help="Set users consent programmatically" type="action" color="charcoal" returns="void">
+        <fields>
+            <dropdown order="0">
+                <choices>
+                    <c text="YES" code="true"></c>
+                    <c text="NO" code="false"></c>
+                </choices>
+            </dropdown>
+        </fields>
+    </block>
+    
+    <block tag="getConsentHeyzap" spec="Heyzap get consented [c:heyzap]" code="Heyzap.getConsent()" help="Retruns true(YES) when consent is set to YES and returns false(NO) when consent is set to NO" type="normal" color="charcoal" returns="boolean">
+        <fields>
+        </fields>
+    </block>
+    
     <block tag="getBannerInfoHeyzap" spec="Heyzap: Banner Ad %0 [c:heyzap]" code="Heyzap.getBannerInfo(~)" type="normal" color="charcoal" returns="boolean">
         <fields>
             <dropdown order="0">

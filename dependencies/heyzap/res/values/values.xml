@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ia_fullscreen_background">#ff000000</color>
+    <color name="ia_mraid_expanded_dimmed_bk">#CC777777</color>
+    <color name="ia_overlay_bg_color">#4d262626</color>
+    <color name="ia_overlay_stroke_color">#4ddcdcdc</color>
+    <dimen name="ia_overlay_control_margin">5dp</dimen>
+    <dimen name="ia_overlay_stroke_width">1dp</dimen>
+    <dimen name="ia_round_control_padding">5dp</dimen>
+    <dimen name="ia_round_control_size">27dp</dimen>
+    <item name="inn_texture_view" type="id"/>
+    <item name="inneractive_vast_endcard_gif" type="id"/>
+    <item name="inneractive_vast_endcard_html" type="id"/>
+    <item name="inneractive_vast_endcard_iframe" type="id"/>
+    <item name="inneractive_vast_endcard_static" type="id"/>
+    <item name="inneractive_webview_internal_browser" type="id"/>
+    <item name="inneractive_webview_mraid" type="id"/>
+    <item name="inneractive_webview_vast_endcard" type="id"/>
+    <item name="inneractive_webview_vast_vpaid" type="id"/>
+    <integer name="ia_ib_button_size_dp">32</integer>
+    <integer name="ia_ib_toolbar_height_dp">48</integer>
+    <style name="InneractiveAppTheme.Home" parent="android:Theme.NoTitleBar.Fullscreen"/>
+</resources>

@@ -1,0 +1,17 @@
+<script>
+    var ifr = document.createElement('iframe');
+    var oldOnLoad = window.onload;
+    window.onload = function onWinLoaded() {
+        ifr.setAttribute('src', '$__SrcIframeUrl__$');
+        ifr.setAttribute('style', 'display:block; border:none; margin:0; padding:0; overflow:hidden;');
+        ifr.width = window.innerWidth;
+        document.body.appendChild(ifr);
+        if (typeof oldOnLoad === 'function') {
+            oldOnLoad.apply(null);
+        }
+    };
+    window.onresize = function() {
+        ifr.width = document.body.clientWidth;
+        ifr.height = document.body.clientHeight;
+    };
+</script>

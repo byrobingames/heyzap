@@ -19,5 +19,7 @@
         
         <dependency path="frameworks/HeyzapAds.framework"/>
         
+        <template path="templates" />
+        
 	</section>
 </project>

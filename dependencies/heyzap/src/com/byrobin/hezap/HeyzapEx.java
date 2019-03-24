@@ -25,6 +25,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 import android.util.Log;
+import android.content.*;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import android.view.Gravity;
 import android.view.animation.Animation;
@@ -313,6 +316,42 @@ public class HeyzapEx extends Extension {
         
         banner.load();
     }
+
+    static public void setUsersConsent(final boolean isGranted){
+
+
+        HeyzapAds.setGdprConsent(isGranted, mainContext);
+
+        SharedPreferences.Editor editor = mainActivity.getPreferences(Context.MODE_PRIVATE).edit();
+        if(editor == null) {
+                Log.d("HezapEx", "HezapEx Failed to write user consent to preferences");
+                return;
+        }
+
+        editor.putBoolean("gdpr_consent_heyzap", isGranted);
+        boolean committed = editor.commit();
+
+        if(!committed) {
+                Log.d("HezapEx", "HezapEx Failed to write user consent to preferences");
+        }
+    }
+
+    public static boolean getUsersConsent(){
+
+        SharedPreferences prefs = mainActivity.getPreferences(Context.MODE_PRIVATE);
+        if(prefs == null) {
+                Log.i("HezapEx", "HezapEx Failed to read user conent preference data");
+        }
+
+        final Boolean isGranted = prefs.getBoolean("gdpr_consent_heyzap", false);
+
+        Log.d("HezapEx","HezapEx get userConsent is: " + isGranted);
+
+        return isGranted;
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     
@@ -676,6 +715,12 @@ public class HeyzapEx extends Extension {
         IncentivizedAd.setOnStatusListener(statusListener);
         IncentivizedAd.setOnIncentiveResultListener(incentiveListener);
         
+    }
+
+    @Override
+    public void onDestroy() {
+      banner.destroy();
+      super.onDestroy();
     }
     
 }

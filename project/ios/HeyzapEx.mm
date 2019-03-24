@@ -130,7 +130,7 @@ using namespace heyzap;
     if ([HZInterstitialAd isAvailableForTag:@"interstitial"])
     {
         
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        /*UIWindow* window = [UIApplication sharedApplication].keyWindow;
         heyzapViewController = [[UIViewController alloc] init];
         
         HZShowOptions *options = [[HZShowOptions alloc] init];
@@ -141,10 +141,10 @@ using namespace heyzap;
         [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
          {
              [HZInterstitialAd showWithOptions:options];
-         }];
+         }];*/
         
         
-        //[HZInterstitialAd showForTag:@"interstitial"];
+        [HZInterstitialAd showForTag:@"interstitial"];
     }
 
 }
@@ -158,7 +158,7 @@ using namespace heyzap;
 {
     if ([HZVideoAd isAvailableForTag:@"video"])
     {
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        /*UIWindow* window = [UIApplication sharedApplication].keyWindow;
         heyzapViewController = [[UIViewController alloc] init];
         
         HZShowOptions *options = [[HZShowOptions alloc] init];
@@ -169,9 +169,9 @@ using namespace heyzap;
         [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
          {
              [HZVideoAd showWithOptions:options];
-         }];
+         }];*/
         
-        //[HZVideoAd showForTag:@"video"];
+        [HZVideoAd showForTag:@"video"];
     }
 }
 
@@ -185,7 +185,7 @@ using namespace heyzap;
 {
     if ([HZIncentivizedAd isAvailableForTag:@"rewarded"])
     {
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        /*UIWindow* window = [UIApplication sharedApplication].keyWindow;
         heyzapViewController = [[UIViewController alloc] init];
         
         HZShowOptions *options = [[HZShowOptions alloc] init];
@@ -196,9 +196,9 @@ using namespace heyzap;
         [window.rootViewController presentViewController:heyzapViewController animated:YES completion:^(void)
          {
              [HZIncentivizedAd showWithOptions:options];
-         }];
+         }];*/
         
-        //[HZIncentivizedAd showForTag:@"rewarded"];
+        [HZIncentivizedAd showForTag:@"rewarded"];
     }
 }
 
@@ -222,21 +222,24 @@ using namespace heyzap;
             bannerOpts.facebookBannerSize = HZFacebookBannerSizeFlexibleWidthHeight50;
         }
         
-        [HZBannerAd requestBannerWithOptions:bannerOpts success:^(HZBannerAd *banner) {
-            bannerView = banner;
-            [root.view addSubview:bannerView];
-            [self setPosition:@"BOTTOM"];
-            NSLog(@"Showed banner");
-            bannerInitialize = YES;
-            bannerLoaded = YES;
-            bannerFailToLoad = NO;
-            [bannerView setHidden: NO];
-        } failure:^(NSError *error) {
-            NSLog(@"Error showing banner: %@",error);
-            bannerInitialize = NO;
-            bannerLoaded = NO;
-            bannerFailToLoad = YES;
-        }];
+        [HZBannerAd requestBannerWithOptions:bannerOpts
+                                    delegate:self
+                                    success:^(HZBannerAd *banner) {
+                                        bannerView = banner;
+                                        [root.view addSubview:bannerView];
+                                        [self setPosition:@"BOTTOM"];
+                                        NSLog(@"Showed banner");
+                                        bannerInitialize = YES;
+                                        bannerLoaded = YES;
+                                        bannerFailToLoad = NO;
+                                        [bannerView setHidden: NO];
+                                    } failure:^(NSError *error) {
+                                        NSLog(@"Error showing banner: %@",error);
+                                        bannerInitialize = NO;
+                                        bannerLoaded = NO;
+                                        bannerFailToLoad = YES;
+                                    }];
+        
     }
  
 }
@@ -320,15 +323,16 @@ using namespace heyzap;
     
 }
 
+#pragma mark - Delegate
 // Sent when an ad has been removed from view.
 - (void) didHideAdWithTag:(NSString *)tag
 {
-    [heyzapViewController dismissViewControllerAnimated:YES completion:^(void)
+    /*[heyzapViewController dismissViewControllerAnimated:YES completion:^(void)
      {
          UIWindow *window = [UIApplication sharedApplication].keyWindow;
          [heyzapViewController.view removeFromSuperview];
          [window makeKeyAndVisible];
-     }];
+     }];*/
     
     if ([tag isEqualToString:@"interstitial"])
     {
@@ -785,6 +789,21 @@ namespace heyzap {
             }
         }
         return false;
+    }
+    
+    void setHeyzapConsent(bool isGranted)
+    {
+        [HeyzapAds setGDPRConsent: isGranted];
+        
+        [[NSUserDefaults standardUserDefaults] setBool:isGranted forKey:@"gdpr_consent_heyzap"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSLog(@"Heyzap SetConsent:  %@", @(isGranted));
+    }
+    
+    bool getHeyzapConsent()
+    {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:@"gdpr_consent_heyzap"];
     }
 
     

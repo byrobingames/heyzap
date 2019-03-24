@@ -235,6 +235,16 @@ static value heyzap_rewardedvideo_failtocomplete()
 }
 DEFINE_PRIM(heyzap_rewardedvideo_failtocomplete, 0);
 
+static value heyzap_setconsent(value isGranted){
+    setHeyzapConsent(val_bool(isGranted));
+    return alloc_null();
+}
+DEFINE_PRIM(heyzap_setconsent,1);
+
+static value heyzap_getconsent(){
+    return alloc_bool(getHeyzapConsent());
+}
+DEFINE_PRIM(heyzap_getconsent,0);
 
 //end callbacks
 
