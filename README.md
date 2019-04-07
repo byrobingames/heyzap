@@ -83,6 +83,7 @@ See [https://github.com/byrobingames/heyzap/wiki/4.-Error-on-Compiling](https://
            - byRobin extension manager 0.1.2 is needed for iOS.<br />
 - 2.9.1(2017-05-16) Update SDK to iOS: 9.10.1 Android: 9.10.1, Tested for Stencyl 3.5, Required byRobin Toolset Extension Manager
 - 2.9.2(2019-03-24) Update SDK to: 9.54.1; set and get users consent; Required extension manager 0.2.5 >
+- 2.9.3(2019-04-07) Minor Android FIX.
 
 ## Submitting a Pull Request
 

@@ -67,6 +67,10 @@ class Heyzap {
 
 	public static function interstitialAd(type:Int) 
 	{
+		if (!initialized){
+			trace("Call init Hezyap first");
+			return;
+		}
 		if (type == 0)
 		{
 			__fetchInterstitial();
@@ -79,6 +83,10 @@ class Heyzap {
 	
 	public static function videoAd(type:Int) 
 	{
+		if (!initialized){
+			trace("Call init Hezyap first");
+			return;
+		}
 		if (type == 0)
 		{
 			__fetchVideo();
@@ -91,6 +99,10 @@ class Heyzap {
 	
 	public static function rewardedVideoAd(type:Int) 
 	{	
+		if (!initialized){
+			trace("Call init Hezyap first");
+			return;
+		}
 		if (type == 0)
 		{
 			__fetchRewardedVideo();
@@ -103,11 +115,19 @@ class Heyzap {
 	
 	public static function presentMediationDebug() 
 	{
+		if (!initialized){
+			trace("Call init Hezyap first");
+			return;
+		}
 		__presentMediationDebug();
 	}
 	
 	public static function bannerAd(type:Int) 
 	{	
+		if (!initialized){
+			trace("Call init Hezyap first");
+			return;
+		}
 		if (type == 0)
 		{
 			__showBanner();
@@ -119,7 +139,12 @@ class Heyzap {
 	}
 	
 	public static function setBannerPosition(position:Int) {
-	
+		
+		if (!initialized){
+			trace("Call init Hezyap first");
+			return;
+		}
+		
 		if(position == 1)
 		{
 			gravityMode = "TOP";

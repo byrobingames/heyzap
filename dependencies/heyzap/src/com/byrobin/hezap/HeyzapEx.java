@@ -43,7 +43,7 @@ public class HeyzapEx extends Extension {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-    
+    private static boolean heyzapInitialized = false;
     private static boolean adLoaded = false;
     private static boolean adFailedToLoad = false;
     private static boolean adClicked =false;
@@ -80,10 +80,12 @@ public class HeyzapEx extends Extension {
             public void run() 
 			{ 
 			
-				Log.d("HeyzapEx","Init Heyzap");
-                HeyzapAds.start(HeyzapId,Extension.mainActivity, HeyzapAds.DISABLE_AUTOMATIC_FETCH);
-                
-                setupCallbacks();
+                            Log.d("HeyzapEx","Init Heyzap");
+                            HeyzapAds.start(HeyzapId,Extension.mainActivity, HeyzapAds.DISABLE_AUTOMATIC_FETCH);
+
+                            setupCallbacks();
+
+                            heyzapInitialized = true;
                 
 			}
 		});	
@@ -92,6 +94,10 @@ public class HeyzapEx extends Extension {
     static public void showBanner() {
         Log.d("HeyzapEx","showbanner Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -114,6 +120,10 @@ public class HeyzapEx extends Extension {
     static public void hideBanner() {
         Log.d("HeyzapEx","Hide banner Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -141,6 +151,10 @@ public class HeyzapEx extends Extension {
     
     static public void setBannerPosition(final String gravityMode)
     {
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         mainActivity.runOnUiThread(new Runnable()
                                    {
             public void run()
@@ -174,6 +188,10 @@ public class HeyzapEx extends Extension {
     static public void fetchInterstitial() {
         Log.d("HeyzapEx","Fetch Interstitial Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -186,6 +204,10 @@ public class HeyzapEx extends Extension {
 	static public void showInterstitial() {
         Log.d("HeyzapEx","Show Interstitial Begin");
 		if(HeyzapId=="") return;
+                if(!heyzapInitialized){
+                    Log.d("HeyzapEx","Heyzap not started, call init first");
+                    return;
+                }
 		Extension.mainActivity.runOnUiThread(new Runnable() {
 			public void run()
             {
@@ -203,6 +225,10 @@ public class HeyzapEx extends Extension {
     static public void fetchVideo() {
         Log.d("HeyzapEx","Fetch Video Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -215,6 +241,10 @@ public class HeyzapEx extends Extension {
     static public void showVideo() {
         Log.d("HeyzapEx","Show Video Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -234,6 +264,10 @@ public class HeyzapEx extends Extension {
     static public void fetchRewardedVideo() {
         Log.d("HeyzapEx","Fetch Rewarded Video Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -246,6 +280,10 @@ public class HeyzapEx extends Extension {
     static public void showRewardedVideo() {
         Log.d("HeyzapEx","Show Rewarded Video Begin");
         if(HeyzapId=="") return;
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Extension.mainActivity.runOnUiThread(new Runnable() {
             public void run()
             {
@@ -261,7 +299,10 @@ public class HeyzapEx extends Extension {
     }
     
     static public void presentMediationDebug(){
-        
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         Log.d("HeyzapEx","Show presentMediationDebug Begin");
 
         Extension.mainActivity.runOnUiThread(new Runnable() {
@@ -277,6 +318,10 @@ public class HeyzapEx extends Extension {
     }
     
     static public void initBanner(){
+        if(!heyzapInitialized){
+            Log.d("HeyzapEx","Heyzap not started, call init first");
+            return;
+        }
         if(bannerInitialize) return;
         if(banner==null){ // if this is the first time we call this function
             layout = new LinearLayout(mainActivity);
@@ -719,7 +764,9 @@ public class HeyzapEx extends Extension {
 
     @Override
     public void onDestroy() {
-      banner.destroy();
+        if(banner != null){
+             banner.destroy();
+            }
       super.onDestroy();
     }
     
